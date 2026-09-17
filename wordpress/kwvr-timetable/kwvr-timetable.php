@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.4
+ * Version: 1.5.5
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.4");
+define("KWVR_TT_VERSION", "1.5.5");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -115,12 +115,10 @@ function kwvr_tt_sanitize_style($input)
 
 function kwvr_tt_style_css($style)
 {
-    $widths = ["compact" => "720px", "default" => "960px", "large" => "1180px", "xlarge" => "1400px"];
-    $cal_max = $widths[$style["calendar_size"]] ?? $widths["xlarge"];
-    if (($style["calendar_width"] ?? "full") === "full") {
-        $cal_max = "100%";
-    } elseif (($style["calendar_width"] ?? "") === "wide") {
-        $cal_max = "min(1100px, 100%)";
+    $widths = ["compact" => "560px", "default" => "760px", "large" => "960px", "xlarge" => "1200px"];
+    $cal_max = $widths[$style["calendar_size"]] ?? $widths["large"];
+    if (($style["calendar_width"] ?? "full") === "wide") {
+        $cal_max = "1100px";
     }
     $day_r = ["square" => "0px", "soft" => "10px", "round" => "18px"];
     $btn_r = ["square" => "0px", "soft" => "8px", "pill" => "999px"];
@@ -246,7 +244,7 @@ function kwvr_tt_settings_page()
             <th><label for="kwvr_tt_style_calendar_size">Calendar size</label></th>
             <td>
               <?php kwvr_tt_style_select("calendar_size", $style["calendar_size"], ["compact" => "Compact", "default" => "Medium", "large" => "Large", "xlarge" => "Extra large"]); ?>
-              <p class="description">Larger calendars make the square day boxes bigger so event titles are easier to read.</p>
+              <p class="description">Sets how wide the calendar card is, up to the theme’s content box. Compact is smaller; Extra large fills more of the column.</p>
             </td>
           </tr>
           <tr>

@@ -14,7 +14,7 @@
   width: 100%;
 }
 .kwvr-tt-live {
-  --kwvr-cal-max: 100%;
+  --kwvr-cal-max: 960px;
   --kwvr-day-gap: 8px;
   --kwvr-day-radius: 10px;
   --kwvr-event-size: 8px;
