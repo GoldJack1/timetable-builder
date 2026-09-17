@@ -1,31 +1,48 @@
+.kwvr-tt-page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 8px 12px 40px;
+  box-sizing: border-box;
+  clear: both;
+}
 .kwvr-tt-live {
   background: #fff;
   color: #111;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-  width: 100%;
+  width: min(560px, 100%);
   max-width: 100%;
+  margin: 0 auto;
+  padding: 20px 22px 24px;
+  border-radius: 12px;
+  box-sizing: border-box;
+  float: none;
 }
 .kwvr-tt-month-nav {
   display: flex;
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  margin: 0 0 16px;
+  margin: 0 0 18px;
 }
 .kwvr-tt-month-title {
   margin: 0;
   flex: 1;
   text-align: center;
-  font-size: 1.15rem;
+  font-size: 1.05rem;
   font-weight: 700;
+  letter-spacing: 0.01em;
 }
 .kwvr-tt-month-btn {
-  border: 1px solid #bbb;
+  border: 1px solid #d0d0d0;
   background: #fff;
-  padding: 6px 12px;
+  padding: 6px 14px;
   font: inherit;
+  font-size: 13px;
   cursor: pointer;
-  border-radius: 6px;
+  border-radius: 8px;
 }
 .kwvr-tt-month-btn:disabled {
   opacity: 0.35;
@@ -207,34 +224,34 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: clamp(3px, 1.2cqi, 8px);
+  gap: 8px;
 }
 .month-wd-row {
-  margin-bottom: 6px;
+  margin-bottom: 8px;
 }
 .month-wd {
   width: auto;
   min-width: 0;
   text-align: center;
-  font-size: clamp(10px, 2.8cqi, 14px);
+  font-size: 11px;
   font-weight: 600;
-  color: #555;
+  letter-spacing: 0.04em;
+  color: #6a6a6a;
 }
 .month-day {
   box-sizing: border-box;
   width: 100%;
-  height: auto;
-  min-height: 72px;
-  aspect-ratio: auto;
+  aspect-ratio: 1;
+  min-height: 0;
   border: none;
-  border-radius: clamp(6px, 1.6cqi, 10px);
+  border-radius: 10px;
   display: flex;
-  align-items: stretch;
-  justify-content: flex-start;
-  padding: 6px 6px 8px;
+  align-items: center;
+  justify-content: center;
+  padding: 6px 4px;
   font: inherit;
   line-height: 1;
-  text-align: left;
+  text-align: center;
   background: transparent;
   color: #111;
   cursor: pointer;
@@ -244,17 +261,18 @@
 .month-stack {
   display: flex;
   flex-direction: column;
-  align-items: stretch;
-  justify-content: flex-start;
-  gap: 4px;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
   width: 100%;
   min-width: 0;
 }
 .month-head {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 4px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 2px;
   width: 100%;
 }
 .month-num,
@@ -264,35 +282,36 @@
   text-align: center;
 }
 .month-num {
-  font-size: clamp(16px, 4.4cqi, 22px);
+  font-size: 13px;
   font-weight: 700;
   font-variant-numeric: tabular-nums lining-nums;
-  min-width: 2ch;
 }
 .month-day:not(.has-letter) .month-num {
-  opacity: 0.55;
+  opacity: 0.45;
+  font-size: 15px;
 }
 .month-day.has-letter .month-num {
-  font-size: clamp(16px, 4.4cqi, 22px);
-  opacity: 1;
+  font-size: 12px;
+  opacity: 0.92;
 }
 .month-letter {
-  font-size: clamp(16px, 4.4cqi, 22px);
+  font-size: 18px;
   font-weight: 700;
 }
 .month-events {
   display: flex;
   flex-direction: column;
-  gap: 2px;
+  gap: 1px;
   width: 100%;
   min-width: 0;
+  margin-top: 2px;
 }
 .month-event {
   display: block;
-  font-size: clamp(10px, 2.6cqi, 12px);
+  font-size: 9px;
   font-weight: 600;
   line-height: 1.2;
-  text-align: left;
+  text-align: center;
   text-decoration: underline;
   color: inherit;
   overflow: hidden;
@@ -300,7 +319,8 @@
   white-space: nowrap;
 }
 .month-day.has-events {
-  min-height: 96px;
+  aspect-ratio: auto;
+  min-height: 72px;
 }
 .month-day.is-selected,
 .cal-sq.is-selected {

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.4.1
+ * Version: 1.4.3
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,14 +11,28 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.4.1");
+define("KWVR_TT_VERSION", "1.4.3");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
 require_once KWVR_TT_DIR . "includes/github-updater.php";
 
 add_action("admin_menu", function () {
-    add_options_page("KWVR Timetable", "KWVR Timetable", "manage_options", "kwvr-timetable", "kwvr_tt_settings_page");
+    add_menu_page(
+        "KWVR Timetable",
+        "Timetable",
+        "manage_options",
+        "kwvr-timetable",
+        "kwvr_tt_settings_page",
+        "dashicons-calendar-alt",
+        58
+    );
+});
+
+add_filter("plugin_action_links_" . plugin_basename(__FILE__), function ($links) {
+    $url = admin_url("admin.php?page=kwvr-timetable");
+    array_unshift($links, '<a href="' . esc_url($url) . '">Settings</a>');
+    return $links;
 });
 
 add_action("admin_init", function () {
@@ -57,7 +71,7 @@ function kwvr_tt_settings_page()
     ?>
     <div class="wrap">
       <h1>KWVR Timetable</h1>
-      <p>For a local / test WordPress only. Copy this plugin folder into <code>wp-content/plugins</code>, activate it, and put <code>[kwvr_timetable]</code> on any page. A sample timetable is bundled so you do not need a JSON URL. Click a day to open the overlay.</p>
+      <p>Put <code>[kwvr_timetable]</code> on any page. The public calendar is that page, not this screen. Use this page to fetch the latest timetable from GitHub and to control plugin updates.</p>
       <form method="post" action="options.php">
         <?php settings_fields("kwvr_tt"); ?>
         <table class="form-table">
@@ -122,7 +136,7 @@ add_action("admin_post_kwvr_tt_refresh_json", function () {
     $doc = kwvr_tt_load_github_json();
     $ok = !is_wp_error($doc);
     wp_safe_redirect(
-        add_query_arg("kwvr_tt_refresh", $ok ? "1" : "0", admin_url("options-general.php?page=kwvr-timetable"))
+        add_query_arg("kwvr_tt_refresh", $ok ? "1" : "0", admin_url("admin.php?page=kwvr-timetable"))
     );
     exit();
 });
@@ -376,7 +390,7 @@ function kwvr_tt_render($doc, $opts)
     $events = kwvr_tt_merge_events($json_events, $wp_events);
 
     ob_start();
-    echo '<div class="kwvr-tt-live sheet" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
+    echo '<div class="kwvr-tt-page"><div class="kwvr-tt-live sheet" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
 
     if ($opts["view"] === "dates") {
         echo kwvr_tt_date_grid($doc, $cells);
@@ -465,7 +479,7 @@ function kwvr_tt_render($doc, $opts)
         echo kwvr_tt_panel($doc, $panel, $icons);
     }
     echo "</div></div></div>";
-    echo "</div>";
+    echo "</div></div>";
     return ob_get_clean();
 }
 
