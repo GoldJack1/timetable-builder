@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.5
+ * Version: 1.5.6
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.5");
+define("KWVR_TT_VERSION", "1.5.6");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -115,11 +115,12 @@ function kwvr_tt_sanitize_style($input)
 
 function kwvr_tt_style_css($style)
 {
-    $widths = ["compact" => "560px", "default" => "760px", "large" => "960px", "xlarge" => "1200px"];
-    $cal_max = $widths[$style["calendar_size"]] ?? $widths["large"];
-    if (($style["calendar_width"] ?? "full") === "wide") {
-        $cal_max = "1100px";
+    $pct = ["compact" => 68, "default" => 80, "large" => 90, "xlarge" => 100];
+    $p = $pct[$style["calendar_size"] ?? ""] ?? 90;
+    if (($style["calendar_width"] ?? "full") === "contained") {
+        $p = max(50, $p - 16);
     }
+    $cal_max = $p . "%";
     $day_r = ["square" => "0px", "soft" => "10px", "round" => "18px"];
     $btn_r = ["square" => "0px", "soft" => "8px", "pill" => "999px"];
     $ov_r = ["square" => "0px", "soft" => "12px", "round" => "22px"];
@@ -145,6 +146,8 @@ function kwvr_tt_style_css($style)
         "--kwvr-overlay-scrim" => $scrim[$style["overlay_style"]] ?? $scrim["dark"],
         "--kwvr-overlay-radius" => $ov_r[$style["overlay_shape"]] ?? "12px",
         "--kwvr-overlay-max" => $ov_w[$style["overlay_width"]] ?? "960px",
+        "width" => $cal_max,
+        "max-width" => "100%",
     ];
     $out = [];
     foreach ($vars as $k => $v) {
@@ -244,7 +247,7 @@ function kwvr_tt_settings_page()
             <th><label for="kwvr_tt_style_calendar_size">Calendar size</label></th>
             <td>
               <?php kwvr_tt_style_select("calendar_size", $style["calendar_size"], ["compact" => "Compact", "default" => "Medium", "large" => "Large", "xlarge" => "Extra large"]); ?>
-              <p class="description">Sets how wide the calendar card is, up to the theme’s content box. Compact is smaller; Extra large fills more of the column.</p>
+              <p class="description">How much of the theme’s content box the calendar uses. Compact is smaller; Extra large is 100% of that box. Save, then refresh the public page (not only a draft preview).</p>
             </td>
           </tr>
           <tr>
