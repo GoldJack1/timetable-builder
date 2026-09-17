@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.6
+ * Version: 1.5.7
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.6");
+define("KWVR_TT_VERSION", "1.5.7");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -59,12 +59,19 @@ add_action("admin_init", function () {
         "sanitize_callback" => "kwvr_tt_sanitize_style",
         "default" => kwvr_tt_default_style(),
     ]);
+    register_setting("kwvr_tt", "kwvr_tt_calendar_size", [
+        "type" => "string",
+        "sanitize_callback" => function ($v) {
+            return in_array($v, ["compact", "default", "large", "xlarge"], true) ? $v : "large";
+        },
+        "default" => "large",
+    ]);
 });
 
 function kwvr_tt_default_style()
 {
     return [
-        "calendar_size" => "xlarge",
+        "calendar_size" => "large",
         "calendar_width" => "full",
         "day_shape" => "soft",
         "day_gap" => "8",
@@ -84,7 +91,12 @@ function kwvr_tt_get_style()
     if (!is_array($saved)) {
         $saved = [];
     }
-    return array_merge(kwvr_tt_default_style(), array_intersect_key($saved, kwvr_tt_default_style()));
+    $style = array_merge(kwvr_tt_default_style(), array_intersect_key($saved, kwvr_tt_default_style()));
+    $direct = get_option("kwvr_tt_calendar_size", "");
+    if (in_array($direct, ["compact", "default", "large", "xlarge"], true)) {
+        $style["calendar_size"] = $direct;
+    }
+    return $style;
 }
 
 function kwvr_tt_pick($value, $allowed, $fallback)
@@ -115,12 +127,14 @@ function kwvr_tt_sanitize_style($input)
 
 function kwvr_tt_style_css($style)
 {
-    $pct = ["compact" => 68, "default" => 80, "large" => 90, "xlarge" => 100];
-    $p = $pct[$style["calendar_size"] ?? ""] ?? 90;
+    $pct = ["compact" => 58, "default" => 72, "large" => 88, "xlarge" => 100];
+    $scale = ["compact" => "0.86", "default" => "0.94", "large" => "1", "xlarge" => "1.12"];
+    $p = $pct[$style["calendar_size"] ?? ""] ?? 88;
     if (($style["calendar_width"] ?? "full") === "contained") {
-        $p = max(50, $p - 16);
+        $p = max(48, $p - 14);
     }
     $cal_max = $p . "%";
+    $cal_scale = $scale[$style["calendar_size"] ?? ""] ?? "1";
     $day_r = ["square" => "0px", "soft" => "10px", "round" => "18px"];
     $btn_r = ["square" => "0px", "soft" => "8px", "pill" => "999px"];
     $ov_r = ["square" => "0px", "soft" => "12px", "round" => "22px"];
@@ -135,6 +149,7 @@ function kwvr_tt_style_css($style)
     $b = $btn[$style["button_style"]] ?? $btn["light"];
     $vars = [
         "--kwvr-cal-max" => $cal_max,
+        "--kwvr-scale" => $cal_scale,
         "--kwvr-day-gap" => $style["day_gap"] . "px",
         "--kwvr-day-radius" => $day_r[$style["day_shape"]] ?? "10px",
         "--kwvr-event-size" => $ev[$style["event_text"]] ?? "12px",
@@ -244,10 +259,16 @@ function kwvr_tt_settings_page()
             </td>
           </tr>
           <tr>
-            <th><label for="kwvr_tt_style_calendar_size">Calendar size</label></th>
+            <th><label for="kwvr_tt_calendar_size">Calendar size</label></th>
             <td>
-              <?php kwvr_tt_style_select("calendar_size", $style["calendar_size"], ["compact" => "Compact", "default" => "Medium", "large" => "Large", "xlarge" => "Extra large"]); ?>
-              <p class="description">How much of the theme’s content box the calendar uses. Compact is smaller; Extra large is 100% of that box. Save, then refresh the public page (not only a draft preview).</p>
+              <select id="kwvr_tt_calendar_size" name="kwvr_tt_calendar_size">
+                <?php
+                foreach (["compact" => "Compact", "default" => "Medium", "large" => "Large", "xlarge" => "Extra large"] as $value => $label) {
+                    echo '<option value="' . esc_attr($value) . '"' . selected($style["calendar_size"], $value, false) . ">" . esc_html($label) . "</option>";
+                }
+                ?>
+              </select>
+              <p class="description">Compact is clearly smaller; Extra large fills the column and enlarges the letters. After save, refresh the public TimeTables page.</p>
             </td>
           </tr>
           <tr>
@@ -326,6 +347,7 @@ function kwvr_tt_shortcode($atts)
             "icons" => get_option("kwvr_tt_icon_base", "") ?: KWVR_TT_URL . "icons/",
             "view" => "months",
             "width" => "",
+            "size" => "",
         ],
         $atts,
         "kwvr_timetable"
@@ -353,6 +375,7 @@ function kwvr_tt_shortcode($atts)
         "icons" => esc_url_raw($atts["icons"]),
         "view" => $atts["view"] === "dates" ? "dates" : "months",
         "width" => strtolower(trim((string) $atts["width"])),
+        "size" => strtolower(trim((string) $atts["size"])),
     ]);
 }
 
@@ -560,10 +583,12 @@ function kwvr_tt_render($doc, $opts)
     ob_start();
     $look = kwvr_tt_get_style();
     $width = kwvr_tt_pick($opts["width"] ?? "", ["full", "wide", "contained"], $look["calendar_width"] ?? "full");
-    $page_class = "kwvr-tt-page kwvr-tt-width-" . $width;
+    $size = kwvr_tt_pick($opts["size"] ?? "", ["compact", "default", "large", "xlarge"], $look["calendar_size"] ?? "large");
+    $page_class = "kwvr-tt-page kwvr-tt-width-" . $width . " kwvr-tt-size-" . $size;
     $look_css = $look;
     $look_css["calendar_width"] = $width;
-    echo '<div class="' . esc_attr($page_class) . '"><div class="kwvr-tt-live sheet" style="' . esc_attr(kwvr_tt_style_css($look_css)) . '" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
+    $look_css["calendar_size"] = $size;
+    echo '<div class="' . esc_attr($page_class) . '" data-kwvr-size="' . esc_attr($size) . '"><div class="kwvr-tt-live sheet" style="' . esc_attr(kwvr_tt_style_css($look_css)) . '" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
 
     if ($opts["view"] === "dates") {
         echo kwvr_tt_date_grid($doc, $cells);

@@ -14,6 +14,7 @@
 }
 .kwvr-tt-page .kwvr-tt-live {
   --kwvr-cal-max: 100%;
+  --kwvr-scale: 1;
   --kwvr-day-gap: 8px;
   --kwvr-day-radius: 10px;
   --kwvr-event-size: 8px;
@@ -314,20 +315,20 @@
   text-align: center;
 }
 .month-num {
-  font-size: clamp(12px, 16cqi, 16px);
+  font-size: calc(clamp(12px, 16cqi, 16px) * var(--kwvr-scale, 1));
   font-weight: 700;
   font-variant-numeric: tabular-nums lining-nums;
 }
 .month-day:not(.has-letter) .month-num {
   opacity: 0.45;
-  font-size: clamp(14px, 20cqi, 18px);
+  font-size: calc(clamp(14px, 20cqi, 18px) * var(--kwvr-scale, 1));
 }
 .month-day.has-letter .month-num {
-  font-size: clamp(12px, 15cqi, 15px);
+  font-size: calc(clamp(12px, 15cqi, 15px) * var(--kwvr-scale, 1));
   opacity: 0.92;
 }
 .month-letter {
-  font-size: clamp(16px, 24cqi, 24px);
+  font-size: calc(clamp(16px, 24cqi, 24px) * var(--kwvr-scale, 1));
   font-weight: 700;
 }
 .month-events {
