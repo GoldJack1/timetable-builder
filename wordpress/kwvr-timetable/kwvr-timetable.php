@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.2
+ * Version: 1.5.3
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.2");
+define("KWVR_TT_VERSION", "1.5.3");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -65,6 +65,7 @@ function kwvr_tt_default_style()
 {
     return [
         "calendar_size" => "xlarge",
+        "calendar_width" => "full",
         "day_shape" => "soft",
         "day_gap" => "8",
         "event_text" => "small",
@@ -99,6 +100,7 @@ function kwvr_tt_sanitize_style($input)
     }
     return [
         "calendar_size" => kwvr_tt_pick($input["calendar_size"] ?? "", ["compact", "default", "large", "xlarge"], $d["calendar_size"]),
+        "calendar_width" => kwvr_tt_pick($input["calendar_width"] ?? "", ["full", "wide", "contained"], $d["calendar_width"]),
         "day_shape" => kwvr_tt_pick($input["day_shape"] ?? "", ["square", "soft", "round"], $d["day_shape"]),
         "day_gap" => kwvr_tt_pick((string) ($input["day_gap"] ?? ""), ["4", "8", "12", "16"], $d["day_gap"]),
         "event_text" => kwvr_tt_pick($input["event_text"] ?? "", ["small", "medium", "large"], $d["event_text"]),
@@ -114,6 +116,12 @@ function kwvr_tt_sanitize_style($input)
 function kwvr_tt_style_css($style)
 {
     $widths = ["compact" => "720px", "default" => "960px", "large" => "1180px", "xlarge" => "1400px"];
+    $cal_max = $widths[$style["calendar_size"]] ?? $widths["xlarge"];
+    if (($style["calendar_width"] ?? "full") === "full") {
+        $cal_max = "100%";
+    } elseif (($style["calendar_width"] ?? "") === "wide") {
+        $cal_max = "min(1100px, 100%)";
+    }
     $day_r = ["square" => "0px", "soft" => "10px", "round" => "18px"];
     $btn_r = ["square" => "0px", "soft" => "8px", "pill" => "999px"];
     $ov_r = ["square" => "0px", "soft" => "12px", "round" => "22px"];
@@ -127,7 +135,7 @@ function kwvr_tt_style_css($style)
     $scrim = ["light" => "rgba(17,17,17,0.28)", "dark" => "rgba(17,17,17,0.55)", "darker" => "rgba(17,17,17,0.78)"];
     $b = $btn[$style["button_style"]] ?? $btn["light"];
     $vars = [
-        "--kwvr-cal-max" => $widths[$style["calendar_size"]] ?? $widths["large"],
+        "--kwvr-cal-max" => $cal_max,
         "--kwvr-day-gap" => $style["day_gap"] . "px",
         "--kwvr-day-radius" => $day_r[$style["day_shape"]] ?? "10px",
         "--kwvr-event-size" => $ev[$style["event_text"]] ?? "12px",
@@ -228,6 +236,13 @@ function kwvr_tt_settings_page()
         <p class="description">Day boxes stay square on every screen size. These controls change how large they are and how buttons and the timetable overlay look.</p>
         <table class="form-table">
           <tr>
+            <th><label for="kwvr_tt_style_calendar_width">Calendar width</label></th>
+            <td>
+              <?php kwvr_tt_style_select("calendar_width", $style["calendar_width"], ["full" => "Fill the page", "wide" => "Wide", "contained" => "Boxed (use Calendar size)"]); ?>
+              <p class="description">Fill the page stretches the calendar across the content area and centres it. Override per page with <code>[kwvr_timetable width="full"]</code>, <code>wide</code>, or <code>contained</code>.</p>
+            </td>
+          </tr>
+          <tr>
             <th><label for="kwvr_tt_style_calendar_size">Calendar size</label></th>
             <td>
               <?php kwvr_tt_style_select("calendar_size", $style["calendar_size"], ["compact" => "Compact", "default" => "Medium", "large" => "Large", "xlarge" => "Extra large"]); ?>
@@ -273,7 +288,7 @@ function kwvr_tt_settings_page()
         </table>
         <?php submit_button(); ?>
       </form>
-      <p>Shortcode: <code>[kwvr_timetable]</code></p>
+      <p>Shortcode: <code>[kwvr_timetable]</code> or <code>[kwvr_timetable width="full"]</code></p>
     </div>
     <?php
 }
@@ -309,6 +324,7 @@ function kwvr_tt_shortcode($atts)
             "json" => get_option("kwvr_tt_json_url", ""),
             "icons" => get_option("kwvr_tt_icon_base", "") ?: KWVR_TT_URL . "icons/",
             "view" => "months",
+            "width" => "",
         ],
         $atts,
         "kwvr_timetable"
@@ -335,6 +351,7 @@ function kwvr_tt_shortcode($atts)
     return kwvr_tt_render($doc, [
         "icons" => esc_url_raw($atts["icons"]),
         "view" => $atts["view"] === "dates" ? "dates" : "months",
+        "width" => strtolower(trim((string) $atts["width"])),
     ]);
 }
 
@@ -541,7 +558,14 @@ function kwvr_tt_render($doc, $opts)
 
     ob_start();
     $look = kwvr_tt_get_style();
-    echo '<div class="kwvr-tt-page"><div class="kwvr-tt-live sheet" style="' . esc_attr(kwvr_tt_style_css($look)) . '" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
+    $width = kwvr_tt_pick($opts["width"] ?? "", ["full", "wide", "contained"], $look["calendar_width"] ?? "full");
+    $page_class = "kwvr-tt-page kwvr-tt-width-" . $width;
+    if ($width === "full") {
+        $page_class .= " alignfull";
+    }
+    $look_css = $look;
+    $look_css["calendar_width"] = $width;
+    echo '<div class="' . esc_attr($page_class) . '"><div class="kwvr-tt-live sheet" style="' . esc_attr(kwvr_tt_style_css($look_css)) . '" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
 
     if ($opts["view"] === "dates") {
         echo kwvr_tt_date_grid($doc, $cells);
@@ -558,7 +582,7 @@ function kwvr_tt_render($doc, $opts)
             echo "<h3 class='kwvr-tt-card-title'>" . esc_html($m["label"] . " " . $m["year"]) . "</h3>";
             echo '<div class="month-wd-row">';
             foreach ($wd as $w) {
-                echo '<div class="month-wd">' . esc_html($w) . "</div>";
+                echo '<div class="month-wd"><span class="month-wd-full">' . esc_html($w) . '</span><span class="month-wd-short">' . esc_html($w[0]) . "</span></div>";
             }
             echo "</div><div class='month-grid'>";
             foreach (kwvr_tt_month_slots($m["year"], $m["monthIndex"], $cells) as $s) {
