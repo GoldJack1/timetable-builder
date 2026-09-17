@@ -48,9 +48,11 @@ To try your own draft: Export → JSON in the builder, upload that file in the t
 
 ## WordPress plugin updates from GitHub
 
-The plugin can update itself from [GoldJack1/timetable-builder](https://github.com/GoldJack1/timetable-builder).
+The **calendar data** lives in `wordpress/kwvr-timetable/sample/timetable.json`. Change the timetable in the builder, Save JSON, replace that file, commit and push. The WordPress page fetches it from GitHub (5 minute cache, or **Settings → KWVR Timetable → Fetch timetable now**).
 
-1. Upload `wordpress/kwvr-timetable` **once** (version 1.4.0 or later) via wp-admin.
+The **plugin code** updates from [GoldJack1/timetable-builder](https://github.com/GoldJack1/timetable-builder) releases when the Version number is bumped.
+
+1. Upload `wordpress/kwvr-timetable` **once** (version 1.4.1 or later) via wp-admin.
 2. On GitHub: **Settings → Actions → General** → allow Actions, and allow GitHub Actions to create releases (contents write is in the workflow).
 3. Each time the plugin **Version** in `kwvr-timetable.php` is bumped and pushed to `main`, Actions publishes `kwvr-timetable.zip`.
 4. In wp-admin, **Dashboard → Updates** shows KWVR Timetable. Automatic updates are on unless you untick them in Settings → KWVR Timetable.

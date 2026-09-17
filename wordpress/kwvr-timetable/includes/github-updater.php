@@ -18,7 +18,12 @@ function kwvr_tt_plugin_basename()
 
 function kwvr_tt_github_http_args($args, $url)
 {
-    if (strpos($url, "api.github.com") === false && strpos($url, "github.com/" . KWVR_TT_GITHUB_REPO . "/releases") === false) {
+    $repo = KWVR_TT_GITHUB_REPO;
+    $hit =
+        strpos((string) $url, "api.github.com") !== false ||
+        strpos((string) $url, "github.com/" . $repo . "/releases") !== false ||
+        strpos((string) $url, "raw.githubusercontent.com/" . $repo) !== false;
+    if (!$hit) {
         return $args;
     }
     $token = get_option("kwvr_tt_github_token", "");
@@ -122,4 +127,56 @@ function kwvr_tt_github_auto_update($update, $item)
         return true;
     }
     return $update;
+}
+
+function kwvr_tt_github_json_path()
+{
+    return "wordpress/kwvr-timetable/sample/timetable.json";
+}
+
+function kwvr_tt_load_github_json()
+{
+    $cached = get_transient("kwvr_tt_github_json");
+    if (is_array($cached) && !empty($cached["calendar"])) {
+        return $cached;
+    }
+    $api =
+        "https://api.github.com/repos/" .
+        KWVR_TT_GITHUB_REPO .
+        "/contents/" .
+        kwvr_tt_github_json_path() .
+        "?ref=main";
+    $res = wp_remote_get($api, ["timeout" => 15]);
+    $json = "";
+    if (!is_wp_error($res) && wp_remote_retrieve_response_code($res) === 200) {
+        $payload = json_decode(wp_remote_retrieve_body($res), true);
+        if (is_array($payload) && ($payload["encoding"] ?? "") === "base64" && !empty($payload["content"])) {
+            $json = (string) base64_decode(preg_replace("/\s+/", "", $payload["content"]), true);
+        }
+    }
+    if ($json === "") {
+        $raw =
+            "https://raw.githubusercontent.com/" .
+            KWVR_TT_GITHUB_REPO .
+            "/main/" .
+            kwvr_tt_github_json_path();
+        $res = wp_remote_get($raw, ["timeout" => 15]);
+        if (!is_wp_error($res) && wp_remote_retrieve_response_code($res) === 200) {
+            $json = (string) wp_remote_retrieve_body($res);
+        }
+    }
+    if ($json === "") {
+        return new WP_Error("kwvr_tt_github_json", "Could not load timetable JSON from GitHub.");
+    }
+    $doc = json_decode($json, true);
+    if (!is_array($doc) || empty($doc["calendar"]) || empty($doc["palette"])) {
+        return new WP_Error("kwvr_tt_json", "Timetable JSON from GitHub is invalid.");
+    }
+    set_transient("kwvr_tt_github_json", $doc, 5 * MINUTE_IN_SECONDS);
+    return $doc;
+}
+
+function kwvr_tt_clear_github_json_cache()
+{
+    delete_transient("kwvr_tt_github_json");
 }

@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.4.0
+ * Version: 1.4.1
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.4.0");
+define("KWVR_TT_VERSION", "1.4.1");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -27,6 +27,12 @@ add_action("admin_init", function () {
     register_setting("kwvr_tt", "kwvr_tt_github_token", [
         "type" => "string",
         "sanitize_callback" => "sanitize_text_field",
+    ]);
+    register_setting("kwvr_tt", "kwvr_tt_fetch_github", [
+        "type" => "string",
+        "sanitize_callback" => function ($v) {
+            return $v === "1" || $v === 1 || $v === true ? "1" : "0";
+        },
     ]);
     register_setting("kwvr_tt", "kwvr_tt_auto_update", [
         "type" => "string",
@@ -59,7 +65,7 @@ function kwvr_tt_settings_page()
             <th><label for="kwvr_tt_json_url">Optional JSON URL</label></th>
             <td>
               <input class="regular-text" type="url" id="kwvr_tt_json_url" name="kwvr_tt_json_url" value="<?php echo esc_attr(get_option("kwvr_tt_json_url", "")); ?>" />
-              <p class="description">Leave blank to use the bundled sample. Or export JSON from the builder and paste a Media file URL.</p>
+              <p class="description">Leave blank to fetch the timetable from GitHub (<code>wordpress/kwvr-timetable/sample/timetable.json</code> on <code>main</code>). A Media URL here overrides GitHub.</p>
             </td>
           </tr>
           <tr>
@@ -70,7 +76,20 @@ function kwvr_tt_settings_page()
             </td>
           </tr>
           <tr>
-            <th>GitHub updates</th>
+            <th>Timetable from GitHub</th>
+            <td>
+              <label>
+                <input type="hidden" name="kwvr_tt_fetch_github" value="0" />
+                <input type="checkbox" name="kwvr_tt_fetch_github" value="1" <?php checked(get_option("kwvr_tt_fetch_github", "1"), "1"); ?> />
+                Load the live calendar JSON from the GitHub repo (cached for 5 minutes)
+              </label>
+              <p>
+                <a class="button" href="<?php echo esc_url(wp_nonce_url(admin_url("admin-post.php?action=kwvr_tt_refresh_json"), "kwvr_tt_refresh_json")); ?>">Fetch timetable now</a>
+              </p>
+            </td>
+          </tr>
+          <tr>
+            <th>Plugin from GitHub</th>
             <td>
               <label>
                 <input type="hidden" name="kwvr_tt_auto_update" value="0" />
@@ -95,6 +114,30 @@ function kwvr_tt_settings_page()
     <?php
 }
 
+add_action("admin_post_kwvr_tt_refresh_json", function () {
+    if (!current_user_can("manage_options") || !wp_verify_nonce($_GET["_wpnonce"] ?? "", "kwvr_tt_refresh_json")) {
+        wp_die("Not allowed.");
+    }
+    kwvr_tt_clear_github_json_cache();
+    $doc = kwvr_tt_load_github_json();
+    $ok = !is_wp_error($doc);
+    wp_safe_redirect(
+        add_query_arg("kwvr_tt_refresh", $ok ? "1" : "0", admin_url("options-general.php?page=kwvr-timetable"))
+    );
+    exit();
+});
+
+add_action("admin_notices", function () {
+    if (!isset($_GET["page"]) || $_GET["page"] !== "kwvr-timetable" || !isset($_GET["kwvr_tt_refresh"])) {
+        return;
+    }
+    if ($_GET["kwvr_tt_refresh"] === "1") {
+        echo '<div class="notice notice-success is-dismissible"><p>Timetable JSON loaded from GitHub.</p></div>';
+    } else {
+        echo '<div class="notice notice-error is-dismissible"><p>Could not load timetable JSON from GitHub. Check the repo path and token.</p></div>';
+    }
+});
+
 function kwvr_tt_shortcode($atts)
 {
     $atts = shortcode_atts(
@@ -111,7 +154,16 @@ function kwvr_tt_shortcode($atts)
     wp_enqueue_script("kwvr-timetable", KWVR_TT_URL . "assets/timetable.js", [], KWVR_TT_VERSION, true);
 
     $json_url = esc_url_raw($atts["json"]);
-    $doc = $json_url ? kwvr_tt_load_json($json_url) : kwvr_tt_load_sample();
+    if ($json_url) {
+        $doc = kwvr_tt_load_json($json_url);
+    } elseif (get_option("kwvr_tt_fetch_github", "1") === "1") {
+        $doc = kwvr_tt_load_github_json();
+        if (is_wp_error($doc)) {
+            $doc = kwvr_tt_load_sample();
+        }
+    } else {
+        $doc = kwvr_tt_load_sample();
+    }
     if (is_wp_error($doc)) {
         return '<p class="kwvr-tt-err">' . esc_html($doc->get_error_message()) . "</p>";
     }

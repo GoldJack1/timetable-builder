@@ -1216,6 +1216,10 @@ function ExportMenu({
         <button type="button" onClick={() => downloadJson(doc, "timetable")}>
           Save JSON
         </button>
+        <p className="hint">
+          For the WordPress site, replace <code>wordpress/kwvr-timetable/sample/timetable.json</code> with this file, then
+          commit and push.
+        </p>
         <label className="field" style={{ margin: 0 }}>
           Load JSON
           <input type="file" accept="application/json" onChange={(e) => e.target.files?.[0] && onJsonFile(e.target.files[0])} />
