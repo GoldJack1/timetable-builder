@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.9
+ * Version: 1.6.0
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.9");
+define("KWVR_TT_VERSION", "1.6.0");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 

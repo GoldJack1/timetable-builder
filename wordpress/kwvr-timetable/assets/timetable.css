@@ -459,12 +459,11 @@ body.kwvr-tt-open {
   .kwvr-tt-page .kwvr-tt-live {
     --kwvr-cal-max: 100%;
     --kwvr-scale: 1;
-    --kwvr-day-gap: 6px;
     width: 100% !important;
     max-width: 100% !important;
     margin-left: 0 !important;
     margin-right: 0 !important;
-    padding: 12px 8px 14px;
+    padding: 10px 6px 12px;
     border-radius: 16px;
   }
   .kwvr-tt-month-nav {
@@ -489,17 +488,24 @@ body.kwvr-tt-open {
     display: inline;
   }
   .month-wd {
-    font-size: 11px;
+    font-size: 10px;
   }
   .month-wd-row,
   .month-grid {
-    gap: 6px;
+    gap: max(3px, calc(var(--kwvr-day-gap) * 0.55));
   }
   .month-day {
     aspect-ratio: 1 / 1;
     min-height: 0;
     padding: 0;
-    border-radius: 12px;
+  }
+  .month-stack {
+    padding: 3px 2px 2px;
+    justify-content: center;
+    gap: 0;
+  }
+  .month-head {
+    gap: 1px;
   }
   .month-day.outside {
     background: transparent !important;
@@ -510,32 +516,32 @@ body.kwvr-tt-open {
   .month-day.outside * {
     visibility: hidden;
   }
-  .month-day.has-letter .month-stack {
-    padding: 16px 3px 6px;
-  }
-  .month-day.has-letter .month-head {
-    position: relative;
-    padding-top: 2px;
-  }
-  .month-day.has-letter .month-num {
-    position: absolute;
-    top: -12px;
-    left: 0;
-    right: 0;
-    font-size: 11px;
+  .month-num,
+  .month-day.has-letter .month-num,
+  .month-day:not(.has-letter) .month-num {
+    position: static;
+    top: auto;
+    font-size: 10px;
     opacity: 0.9;
   }
+  .month-day:not(.has-letter) .month-num {
+    font-size: 11px;
+    opacity: 0.45;
+  }
+  .month-letter,
   .month-day.has-letter .month-letter {
-    font-size: clamp(20px, 8vw, 32px);
+    font-size: 13px;
     line-height: 1;
   }
-  .month-day:not(.has-letter) .month-num {
-    font-size: clamp(15px, 5vw, 20px);
-  }
-  .month-day.has-events .month-events {
-    margin-top: 4px;
+  .month-events {
+    margin-top: 2px;
+    width: 100%;
   }
   .month-event {
-    font-size: 8px;
+    font-size: max(7px, calc(var(--kwvr-event-size) * 0.85));
+    line-height: 1.1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
   }
 }
