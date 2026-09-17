@@ -9,10 +9,22 @@
   clear: both;
 }
 .kwvr-tt-live {
+  --kwvr-cal-max: 1400px;
+  --kwvr-day-gap: 8px;
+  --kwvr-day-radius: 10px;
+  --kwvr-event-size: 8px;
+  --kwvr-event-lines: 1;
+  --kwvr-btn-bg: #fff;
+  --kwvr-btn-fg: #111;
+  --kwvr-btn-border: #d0d0d0;
+  --kwvr-btn-radius: 8px;
+  --kwvr-overlay-scrim: rgba(17, 17, 17, 0.55);
+  --kwvr-overlay-radius: 12px;
+  --kwvr-overlay-max: 960px;
   background: #fff;
   color: #111;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
-  width: min(560px, 100%);
+  width: min(var(--kwvr-cal-max), 100%);
   max-width: 100%;
   margin: 0 auto;
   padding: 20px 22px 24px;
@@ -36,13 +48,14 @@
   letter-spacing: 0.01em;
 }
 .kwvr-tt-month-btn {
-  border: 1px solid #d0d0d0;
-  background: #fff;
-  padding: 6px 14px;
+  border: 1px solid var(--kwvr-btn-border);
+  background: var(--kwvr-btn-bg);
+  color: var(--kwvr-btn-fg);
+  padding: 8px 16px;
   font: inherit;
   font-size: 13px;
   cursor: pointer;
-  border-radius: 8px;
+  border-radius: var(--kwvr-btn-radius);
 }
 .kwvr-tt-month-btn:disabled {
   opacity: 0.35;
@@ -224,10 +237,10 @@
   display: grid;
   width: 100%;
   grid-template-columns: repeat(7, minmax(0, 1fr));
-  gap: 8px;
+  gap: var(--kwvr-day-gap);
 }
 .month-wd-row {
-  margin-bottom: 8px;
+  margin-bottom: var(--kwvr-day-gap);
 }
 .month-wd {
   width: auto;
@@ -239,22 +252,26 @@
   color: #6a6a6a;
 }
 .month-day {
+  position: relative;
   box-sizing: border-box;
   width: 100%;
-  aspect-ratio: 1;
+  aspect-ratio: 1 / 1;
+  height: auto;
   min-height: 0;
+  max-height: none;
   border: none;
-  border-radius: 10px;
+  border-radius: var(--kwvr-day-radius);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px 4px;
+  padding: 0;
   font: inherit;
   line-height: 1;
   text-align: center;
   background: transparent;
   color: #111;
   cursor: pointer;
+  overflow: hidden;
   -webkit-tap-highlight-color: transparent;
   touch-action: manipulation;
 }
@@ -263,17 +280,24 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 3px;
+  gap: 0;
   width: 100%;
+  height: 100%;
   min-width: 0;
+  min-height: 0;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: 6px 4px;
 }
 .month-head {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 3px;
   width: 100%;
+  margin: 0;
+  flex: 0 0 auto;
 }
 .month-num,
 .month-letter {
@@ -282,45 +306,46 @@
   text-align: center;
 }
 .month-num {
-  font-size: 13px;
+  font-size: clamp(12px, 16cqi, 16px);
   font-weight: 700;
   font-variant-numeric: tabular-nums lining-nums;
 }
 .month-day:not(.has-letter) .month-num {
   opacity: 0.45;
-  font-size: 15px;
+  font-size: clamp(14px, 20cqi, 18px);
 }
 .month-day.has-letter .month-num {
-  font-size: 12px;
+  font-size: clamp(12px, 15cqi, 15px);
   opacity: 0.92;
 }
 .month-letter {
-  font-size: 18px;
+  font-size: clamp(16px, 24cqi, 24px);
   font-weight: 700;
 }
 .month-events {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1px;
   width: 100%;
   min-width: 0;
-  margin-top: 2px;
+  margin: 5px 0 0;
+  overflow: hidden;
+  flex: 0 0 auto;
 }
 .month-event {
   display: block;
-  font-size: 9px;
+  max-width: 100%;
+  font-size: var(--kwvr-event-size);
   font-weight: 600;
-  line-height: 1.2;
+  line-height: 1.15;
   text-align: center;
   text-decoration: underline;
-  color: inherit;
+  text-underline-offset: 1px;
+  color: inherit !important;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
-}
-.month-day.has-events {
-  aspect-ratio: auto;
-  min-height: 72px;
 }
 .month-day.is-selected,
 .cal-sq.is-selected {
@@ -348,27 +373,29 @@ body.kwvr-tt-open {
 .kwvr-tt-overlay-backdrop {
   position: absolute;
   inset: 0;
-  background: rgba(17, 17, 17, 0.55);
+  background: var(--kwvr-overlay-scrim);
 }
 .kwvr-tt-overlay-card {
   position: relative;
   z-index: 1;
   background: #fff;
-  width: min(960px, 100%);
+  width: min(var(--kwvr-overlay-max), 100%);
   max-height: calc(100dvh - 24px);
   overflow: auto;
   padding: 16px 16px 24px;
-  border-radius: 8px;
+  border-radius: var(--kwvr-overlay-radius);
   box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
   -webkit-overflow-scrolling: touch;
 }
 .kwvr-tt-overlay-close {
   float: right;
-  border: 1px solid #bbb;
-  background: #fff;
-  padding: 8px 12px;
+  border: 1px solid var(--kwvr-btn-border);
+  background: var(--kwvr-btn-bg);
+  color: var(--kwvr-btn-fg);
+  padding: 8px 14px;
   cursor: pointer;
   font: inherit;
+  border-radius: var(--kwvr-btn-radius);
 }
 .kwvr-tt-overlay-when {
   margin: 0 48px 16px 0;
@@ -390,10 +417,19 @@ body.kwvr-tt-open {
   min-width: 520px;
 }
 @media (max-width: 720px) {
+  .kwvr-tt-live {
+    padding: 14px 10px 18px;
+  }
   .kwvr-tt-month-btn {
     padding: 10px 12px;
   }
+  .month-wd-row,
+  .month-grid {
+    gap: max(4px, calc(var(--kwvr-day-gap) * 0.65));
+  }
   .month-day {
-    min-height: 44px;
+    aspect-ratio: 1 / 1;
+    min-height: 0;
+    padding: 0;
   }
 }

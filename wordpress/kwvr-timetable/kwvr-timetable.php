@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.4.3
+ * Version: 1.5.2
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.4.3");
+define("KWVR_TT_VERSION", "1.5.2");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -54,7 +54,107 @@ add_action("admin_init", function () {
             return $v === "1" || $v === 1 || $v === true ? "1" : "0";
         },
     ]);
+    register_setting("kwvr_tt", "kwvr_tt_style", [
+        "type" => "array",
+        "sanitize_callback" => "kwvr_tt_sanitize_style",
+        "default" => kwvr_tt_default_style(),
+    ]);
 });
+
+function kwvr_tt_default_style()
+{
+    return [
+        "calendar_size" => "xlarge",
+        "day_shape" => "soft",
+        "day_gap" => "8",
+        "event_text" => "small",
+        "event_lines" => "1",
+        "button_style" => "light",
+        "button_shape" => "soft",
+        "overlay_style" => "dark",
+        "overlay_shape" => "soft",
+        "overlay_width" => "default",
+    ];
+}
+
+function kwvr_tt_get_style()
+{
+    $saved = get_option("kwvr_tt_style", []);
+    if (!is_array($saved)) {
+        $saved = [];
+    }
+    return array_merge(kwvr_tt_default_style(), array_intersect_key($saved, kwvr_tt_default_style()));
+}
+
+function kwvr_tt_pick($value, $allowed, $fallback)
+{
+    return in_array($value, $allowed, true) ? $value : $fallback;
+}
+
+function kwvr_tt_sanitize_style($input)
+{
+    $d = kwvr_tt_default_style();
+    if (!is_array($input)) {
+        return $d;
+    }
+    return [
+        "calendar_size" => kwvr_tt_pick($input["calendar_size"] ?? "", ["compact", "default", "large", "xlarge"], $d["calendar_size"]),
+        "day_shape" => kwvr_tt_pick($input["day_shape"] ?? "", ["square", "soft", "round"], $d["day_shape"]),
+        "day_gap" => kwvr_tt_pick((string) ($input["day_gap"] ?? ""), ["4", "8", "12", "16"], $d["day_gap"]),
+        "event_text" => kwvr_tt_pick($input["event_text"] ?? "", ["small", "medium", "large"], $d["event_text"]),
+        "event_lines" => kwvr_tt_pick((string) ($input["event_lines"] ?? ""), ["1", "2", "3"], $d["event_lines"]),
+        "button_style" => kwvr_tt_pick($input["button_style"] ?? "", ["light", "dark", "outline"], $d["button_style"]),
+        "button_shape" => kwvr_tt_pick($input["button_shape"] ?? "", ["square", "soft", "pill"], $d["button_shape"]),
+        "overlay_style" => kwvr_tt_pick($input["overlay_style"] ?? "", ["light", "dark", "darker"], $d["overlay_style"]),
+        "overlay_shape" => kwvr_tt_pick($input["overlay_shape"] ?? "", ["square", "soft", "round"], $d["overlay_shape"]),
+        "overlay_width" => kwvr_tt_pick($input["overlay_width"] ?? "", ["narrow", "default", "wide"], $d["overlay_width"]),
+    ];
+}
+
+function kwvr_tt_style_css($style)
+{
+    $widths = ["compact" => "720px", "default" => "960px", "large" => "1180px", "xlarge" => "1400px"];
+    $day_r = ["square" => "0px", "soft" => "10px", "round" => "18px"];
+    $btn_r = ["square" => "0px", "soft" => "8px", "pill" => "999px"];
+    $ov_r = ["square" => "0px", "soft" => "12px", "round" => "22px"];
+    $ov_w = ["narrow" => "720px", "default" => "960px", "wide" => "1180px"];
+    $ev = ["small" => "8px", "medium" => "9px", "large" => "11px"];
+    $btn = [
+        "light" => ["#ffffff", "#111111", "#d0d0d0"],
+        "dark" => ["#111111", "#ffffff", "#111111"],
+        "outline" => ["transparent", "#111111", "#111111"],
+    ];
+    $scrim = ["light" => "rgba(17,17,17,0.28)", "dark" => "rgba(17,17,17,0.55)", "darker" => "rgba(17,17,17,0.78)"];
+    $b = $btn[$style["button_style"]] ?? $btn["light"];
+    $vars = [
+        "--kwvr-cal-max" => $widths[$style["calendar_size"]] ?? $widths["large"],
+        "--kwvr-day-gap" => $style["day_gap"] . "px",
+        "--kwvr-day-radius" => $day_r[$style["day_shape"]] ?? "10px",
+        "--kwvr-event-size" => $ev[$style["event_text"]] ?? "12px",
+        "--kwvr-event-lines" => $style["event_lines"],
+        "--kwvr-btn-bg" => $b[0],
+        "--kwvr-btn-fg" => $b[1],
+        "--kwvr-btn-border" => $b[2],
+        "--kwvr-btn-radius" => $btn_r[$style["button_shape"]] ?? "8px",
+        "--kwvr-overlay-scrim" => $scrim[$style["overlay_style"]] ?? $scrim["dark"],
+        "--kwvr-overlay-radius" => $ov_r[$style["overlay_shape"]] ?? "12px",
+        "--kwvr-overlay-max" => $ov_w[$style["overlay_width"]] ?? "960px",
+    ];
+    $out = [];
+    foreach ($vars as $k => $v) {
+        $out[] = $k . ":" . $v;
+    }
+    return implode(";", $out);
+}
+
+function kwvr_tt_style_select($name, $current, $choices)
+{
+    echo '<select id="kwvr_tt_style_' . esc_attr($name) . '" name="kwvr_tt_style[' . esc_attr($name) . ']">';
+    foreach ($choices as $value => $label) {
+        echo '<option value="' . esc_attr($value) . '"' . selected($current, $value, false) . ">" . esc_html($label) . "</option>";
+    }
+    echo "</select>";
+}
 
 add_filter("upload_mimes", function ($mimes) {
     $mimes["json"] = "application/json";
@@ -71,9 +171,12 @@ function kwvr_tt_settings_page()
     ?>
     <div class="wrap">
       <h1>KWVR Timetable</h1>
-      <p>Put <code>[kwvr_timetable]</code> on any page. The public calendar is that page, not this screen. Use this page to fetch the latest timetable from GitHub and to control plugin updates.</p>
+      <p>Put <code>[kwvr_timetable]</code> on any page. The public calendar is that page, not this screen. Use this page to fetch the latest timetable from GitHub, control plugin updates, and style the calendar.</p>
       <form method="post" action="options.php">
-        <?php settings_fields("kwvr_tt"); ?>
+        <?php
+        settings_fields("kwvr_tt");
+        $style = kwvr_tt_get_style();
+        ?>
         <table class="form-table">
           <tr>
             <th><label for="kwvr_tt_json_url">Optional JSON URL</label></th>
@@ -119,6 +222,53 @@ function kwvr_tt_settings_page()
               <input class="regular-text" type="password" id="kwvr_tt_github_token" name="kwvr_tt_github_token" value="<?php echo esc_attr(get_option("kwvr_tt_github_token", "")); ?>" autocomplete="off" />
               <p class="description">Leave blank if the GitHub repo is public. If it is private, create a token with <code>repo</code> access and paste it here.</p>
             </td>
+          </tr>
+        </table>
+        <h2>Calendar look</h2>
+        <p class="description">Day boxes stay square on every screen size. These controls change how large they are and how buttons and the timetable overlay look.</p>
+        <table class="form-table">
+          <tr>
+            <th><label for="kwvr_tt_style_calendar_size">Calendar size</label></th>
+            <td>
+              <?php kwvr_tt_style_select("calendar_size", $style["calendar_size"], ["compact" => "Compact", "default" => "Medium", "large" => "Large", "xlarge" => "Extra large"]); ?>
+              <p class="description">Larger calendars make the square day boxes bigger so event titles are easier to read.</p>
+            </td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_day_shape">Day corners</label></th>
+            <td><?php kwvr_tt_style_select("day_shape", $style["day_shape"], ["square" => "Sharp square", "soft" => "Soft square", "round" => "Rounded square"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_day_gap">Gap between days</label></th>
+            <td><?php kwvr_tt_style_select("day_gap", $style["day_gap"], ["4" => "Tight", "8" => "Normal", "12" => "Roomy", "16" => "Wide"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_event_text">Event text</label></th>
+            <td><?php kwvr_tt_style_select("event_text", $style["event_text"], ["small" => "Small", "medium" => "Medium", "large" => "Large"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_event_lines">Event lines</label></th>
+            <td><?php kwvr_tt_style_select("event_lines", $style["event_lines"], ["1" => "1 line", "2" => "2 lines", "3" => "3 lines"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_button_style">Month buttons</label></th>
+            <td><?php kwvr_tt_style_select("button_style", $style["button_style"], ["light" => "Light", "dark" => "Dark", "outline" => "Outline"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_button_shape">Button shape</label></th>
+            <td><?php kwvr_tt_style_select("button_shape", $style["button_shape"], ["square" => "Square", "soft" => "Soft", "pill" => "Pill"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_overlay_style">Overlay backdrop</label></th>
+            <td><?php kwvr_tt_style_select("overlay_style", $style["overlay_style"], ["light" => "Light dim", "dark" => "Dark dim", "darker" => "Very dark"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_overlay_shape">Overlay corners</label></th>
+            <td><?php kwvr_tt_style_select("overlay_shape", $style["overlay_shape"], ["square" => "Square", "soft" => "Soft", "round" => "Rounded"]); ?></td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_style_overlay_width">Overlay width</label></th>
+            <td><?php kwvr_tt_style_select("overlay_width", $style["overlay_width"], ["narrow" => "Narrow", "default" => "Default", "wide" => "Wide"]); ?></td>
           </tr>
         </table>
         <?php submit_button(); ?>
@@ -390,7 +540,8 @@ function kwvr_tt_render($doc, $opts)
     $events = kwvr_tt_merge_events($json_events, $wp_events);
 
     ob_start();
-    echo '<div class="kwvr-tt-page"><div class="kwvr-tt-live sheet" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
+    $look = kwvr_tt_get_style();
+    echo '<div class="kwvr-tt-page"><div class="kwvr-tt-live sheet" style="' . esc_attr(kwvr_tt_style_css($look)) . '" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
 
     if ($opts["view"] === "dates") {
         echo kwvr_tt_date_grid($doc, $cells);
@@ -412,7 +563,7 @@ function kwvr_tt_render($doc, $opts)
             echo "</div><div class='month-grid'>";
             foreach (kwvr_tt_month_slots($m["year"], $m["monthIndex"], $cells) as $s) {
                 $pal = $s["letter"] ? kwvr_tt_palette($doc, $s["letter"]) : null;
-                $day_events = $events[$s["iso"]] ?? [];
+                $day_events = $pal ? $events[$s["iso"]] ?? [] : [];
                 $cls = "month-day";
                 if ($pal) {
                     $cls .= " has-letter";
