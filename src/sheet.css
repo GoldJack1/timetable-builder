@@ -1,0 +1,310 @@
+.sheet {
+  background: #fff;
+  color: #111;
+  font-family: "Gill Sans KWVR", "Gill Sans", sans-serif;
+}
+
+.sheet-piece {
+  width: 227mm;
+  min-height: unset;
+  padding: 10mm;
+}
+.sheet-dates.sheet-piece,
+.sheet-months.sheet-piece {
+  width: max-content;
+  padding: 16px 20px 24px;
+}
+.month-wrap.month-wrap-single {
+  grid-template-columns: max-content;
+}
+
+.sheet-title {
+  text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.28em;
+  font-size: 22px;
+  margin: 0 0 6px;
+}
+
+.sheet-intro {
+  text-align: center;
+  font-style: italic;
+  font-size: 11px;
+  margin: 0 0 10px;
+}
+
+.sheet-dates {
+  width: max-content;
+}
+.cal-grid {
+  display: grid;
+  width: max-content;
+  gap: 0;
+  font-size: 11px;
+}
+.cal-sq {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  cursor: pointer;
+  flex: none;
+  font: inherit;
+  font-weight: 600;
+  padding: 0;
+  margin: 0;
+  background: transparent;
+  color: inherit;
+}
+.cal-head {
+  font-weight: 600;
+  background: #f3f3f3;
+  cursor: default;
+}
+.cal-month {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.cal-corner { }
+.cal-cell {
+  color: #fff;
+}
+.month-day {
+  cursor: pointer;
+}
+
+.panel { font-size: 13px; }
+.panel.stacked .panel-block + .panel-block {
+  margin-top: 16px;
+}
+.panel.stacked.no-gap .panel-block + .panel-block {
+  margin-top: 0;
+}
+.panel-block { width: 100%; }
+.sheet.transparent-bg { background: transparent; }
+.panel-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.panel-table td {
+  height: 24px;
+  padding: 0 6px;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 24px;
+  font-size: 13px;
+}
+.panel-table tr.panel-banner td {
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  padding: 0 8px;
+  height: 24px;
+  line-height: 24px;
+  font-size: 13px;
+  text-align: left;
+}
+.panel-table tr.notes-row {
+  height: 24px;
+}
+.panel-table tr.notes-row td {
+  color: inherit;
+  height: 24px;
+  max-height: 24px;
+  line-height: 24px;
+  vertical-align: middle;
+  box-sizing: border-box;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+.panel-table tr.notes-row td.name {
+  padding: 0 6px;
+}
+.notes-label {
+  display: block;
+  height: 24px;
+  line-height: 24px;
+}
+.notes-row-follow .notes-label {
+  position: relative;
+  top: -1px;
+}
+.panel-table tr.notes-row td.time {
+  padding: 0;
+}
+.panel-table .name { text-align: left; font-weight: 600; }
+.panel-table col.name { width: 130px; }
+.panel-table col.dir { width: 14px; }
+.station-cell {
+  white-space: nowrap;
+}
+.panel-table .dir { width: 14px; }
+.panel-table .time {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.panel-table .time.italic { font-style: italic; }
+
+.icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 12px;
+  gap: 3px;
+  flex: none;
+  vertical-align: middle;
+}
+.panel-table tr.notes-row .icons-notes {
+  height: 24px;
+  width: 100%;
+  vertical-align: middle;
+}
+.panel-table tr.notes-row-follow .icons-notes {
+  position: relative;
+  top: -2px;
+}
+.icons-station {
+  margin-left: 0.3em;
+  position: relative;
+  top: -0.75px;
+}
+.icon-mark {
+  height: 12px;
+  display: block;
+  fill: currentColor;
+  overflow: visible;
+  flex: none;
+}
+
+.month-wrap {
+  display: grid;
+  grid-template-columns: repeat(2, max-content);
+  gap: 36px 56px;
+  align-items: start;
+}
+.month-card h2 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.month-wd-row,
+.month-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 52px);
+  gap: 5px;
+}
+.month-wd-row {
+  margin-bottom: 6px;
+}
+.month-wd {
+  width: 52px;
+  text-align: center;
+  font-size: 11px;
+  font-weight: 600;
+  color: #555;
+}
+.month-day {
+  box-sizing: border-box;
+  width: 52px;
+  height: 52px;
+  border: none;
+  border-radius: 7px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  font: inherit;
+  font-size: 14px;
+  line-height: 1;
+  text-align: center;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+}
+.month-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+  text-align: center;
+}
+.month-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: center;
+  gap: 5px;
+  width: 100%;
+}
+.month-num,
+.month-letter {
+  display: block;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  line-height: 1;
+  text-align: center;
+}
+.month-num {
+  font-size: 14px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  min-width: 2ch;
+}
+.month-day:not(.has-letter) .month-num {
+  opacity: 0.5;
+}
+.month-day.has-letter .month-num {
+  font-size: 14px;
+  opacity: 1;
+}
+.month-letter {
+  font-size: 14px;
+  font-weight: 700;
+}
+.month-events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+}
+.month-event {
+  display: block;
+  font-size: 11px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  color: inherit;
+}
+.month-day.outside.hidden-adj {
+  background: transparent;
+  cursor: default;
+  pointer-events: none;
+}
+.month-day.is-selected,
+.cal-sq.is-selected {
+  outline: 2px solid #111;
+  outline-offset: 1px;
+}
+.kwvr-panel-live.is-active {
+  outline: 3px solid #111;
+  outline-offset: 4px;
+}
+
+.sheet-foot {
+  margin-top: 8px;
+  font-size: 10px;
+  line-height: 1.35;
+}

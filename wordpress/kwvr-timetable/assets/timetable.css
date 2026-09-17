@@ -1,0 +1,379 @@
+.kwvr-tt-live {
+  background: #fff;
+  color: #111;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, sans-serif;
+  width: 100%;
+  max-width: 100%;
+}
+.kwvr-tt-month-nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin: 0 0 16px;
+}
+.kwvr-tt-month-title {
+  margin: 0;
+  flex: 1;
+  text-align: center;
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+.kwvr-tt-month-btn {
+  border: 1px solid #bbb;
+  background: #fff;
+  padding: 6px 12px;
+  font: inherit;
+  cursor: pointer;
+  border-radius: 6px;
+}
+.kwvr-tt-month-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+.kwvr-tt-live .kwvr-tt-card-title {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+.kwvr-tt-live .month-wrap-single {
+  width: 100%;
+  grid-template-columns: minmax(0, 1fr);
+  margin: 0;
+}
+.kwvr-tt-iframe {
+  width: 100%;
+  min-height: 1400px;
+  border: 0;
+}
+.kwvr-tt-err {
+  color: #8a1f1f;
+}
+.kwvr-embed-head {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.kwvr-embed-head h2 {
+  letter-spacing: 0.2em;
+  font-size: 1.4rem;
+  margin: 0 0 8px;
+}
+.kwvr-embed-head .intro {
+  margin: 0 0 8px;
+}
+.kwvr-embed-key {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 8px;
+  margin: 16px 0 24px;
+}
+.kwvr-embed-key button {
+  border: 0;
+  border-radius: 6px;
+  padding: 6px 12px;
+  font: inherit;
+  font-weight: 700;
+  cursor: pointer;
+}
+.kwvr-embed-key button.is-active {
+  outline: 2px solid #111;
+  outline-offset: 2px;
+}
+.kwvr-embed-panels {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+  margin-top: 32px;
+}
+.kwvr-embed-foot {
+  margin-top: 24px;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+.kwvr-icon {
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  vertical-align: middle;
+}
+.cal-grid {
+  display: grid;
+  width: max-content;
+  max-width: 100%;
+  overflow: auto;
+  gap: 0;
+  font-size: 11px;
+}
+.cal-sq {
+  box-sizing: border-box;
+  width: 24px;
+  height: 24px;
+  border: 1px solid #bbb;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1;
+  cursor: pointer;
+  flex: none;
+  background: #fff;
+  padding: 0;
+  font: inherit;
+}
+.cal-head {
+  font-weight: 600;
+  background: #f3f3f3;
+  cursor: default;
+}
+.cal-month {
+  display: flex;
+  align-items: center;
+  height: 24px;
+  padding: 0 6px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.panel {
+  font-size: 13px;
+}
+.panel.stacked .panel-block + .panel-block {
+  margin-top: 16px;
+}
+.panel-table {
+  width: 100%;
+  table-layout: fixed;
+  border-collapse: collapse;
+}
+.panel-table td {
+  height: 24px;
+  padding: 0 6px;
+  white-space: nowrap;
+  vertical-align: middle;
+  line-height: 24px;
+  font-size: 13px;
+}
+.panel-table tr.panel-banner td {
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  padding: 0 8px;
+  text-align: left;
+}
+.panel-table .name {
+  text-align: left;
+  font-weight: 600;
+}
+.panel-table col.name {
+  width: 130px;
+}
+.panel-table col.dir {
+  width: 14px;
+}
+.panel-table .time {
+  text-align: center;
+  font-variant-numeric: tabular-nums;
+}
+.panel-table .time.italic {
+  font-style: italic;
+}
+.icons {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  margin-left: 0.3em;
+}
+.month-wrap {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 36px 56px;
+  align-items: start;
+  width: 100%;
+}
+.month-card {
+  width: 100%;
+  min-width: 0;
+  container-type: inline-size;
+}
+.month-card h3 {
+  margin: 0 0 10px;
+  font-size: 16px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-align: center;
+}
+.month-wd-row,
+.month-grid {
+  display: grid;
+  width: 100%;
+  grid-template-columns: repeat(7, minmax(0, 1fr));
+  gap: clamp(3px, 1.2cqi, 8px);
+}
+.month-wd-row {
+  margin-bottom: 6px;
+}
+.month-wd {
+  width: auto;
+  min-width: 0;
+  text-align: center;
+  font-size: clamp(10px, 2.8cqi, 14px);
+  font-weight: 600;
+  color: #555;
+}
+.month-day {
+  box-sizing: border-box;
+  width: 100%;
+  height: auto;
+  min-height: 72px;
+  aspect-ratio: auto;
+  border: none;
+  border-radius: clamp(6px, 1.6cqi, 10px);
+  display: flex;
+  align-items: stretch;
+  justify-content: flex-start;
+  padding: 6px 6px 8px;
+  font: inherit;
+  line-height: 1;
+  text-align: left;
+  background: transparent;
+  color: #111;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+.month-stack {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  justify-content: flex-start;
+  gap: 4px;
+  width: 100%;
+  min-width: 0;
+}
+.month-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 4px;
+  width: 100%;
+}
+.month-num,
+.month-letter {
+  display: block;
+  line-height: 1;
+  text-align: center;
+}
+.month-num {
+  font-size: clamp(16px, 4.4cqi, 22px);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums lining-nums;
+  min-width: 2ch;
+}
+.month-day:not(.has-letter) .month-num {
+  opacity: 0.55;
+}
+.month-day.has-letter .month-num {
+  font-size: clamp(16px, 4.4cqi, 22px);
+  opacity: 1;
+}
+.month-letter {
+  font-size: clamp(16px, 4.4cqi, 22px);
+  font-weight: 700;
+}
+.month-events {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  width: 100%;
+  min-width: 0;
+}
+.month-event {
+  display: block;
+  font-size: clamp(10px, 2.6cqi, 12px);
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: left;
+  text-decoration: underline;
+  color: inherit;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.month-day.has-events {
+  min-height: 96px;
+}
+.month-day.is-selected,
+.cal-sq.is-selected {
+  outline: 2px solid #111;
+  outline-offset: 1px;
+}
+.kwvr-panel-live.is-active {
+  outline: none;
+}
+body.kwvr-tt-open {
+  overflow: hidden;
+}
+.kwvr-tt-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: max(12px, env(safe-area-inset-top)) max(12px, env(safe-area-inset-right)) max(12px, env(safe-area-inset-bottom)) max(12px, env(safe-area-inset-left));
+}
+.kwvr-tt-overlay[hidden] {
+  display: none !important;
+}
+.kwvr-tt-overlay-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(17, 17, 17, 0.55);
+}
+.kwvr-tt-overlay-card {
+  position: relative;
+  z-index: 1;
+  background: #fff;
+  width: min(960px, 100%);
+  max-height: calc(100dvh - 24px);
+  overflow: auto;
+  padding: 16px 16px 24px;
+  border-radius: 8px;
+  box-shadow: 0 16px 48px rgba(0, 0, 0, 0.28);
+  -webkit-overflow-scrolling: touch;
+}
+.kwvr-tt-overlay-close {
+  float: right;
+  border: 1px solid #bbb;
+  background: #fff;
+  padding: 8px 12px;
+  cursor: pointer;
+  font: inherit;
+}
+.kwvr-tt-overlay-when {
+  margin: 0 48px 16px 0;
+  font-weight: 700;
+  font-size: 1.05rem;
+}
+.kwvr-tt-overlay-empty {
+  margin: 8px 0 0;
+}
+.kwvr-tt-overlay .kwvr-embed-panels {
+  margin-top: 0;
+  gap: 16px;
+}
+.kwvr-tt-overlay .panel-block {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+.kwvr-tt-overlay .panel-table {
+  min-width: 520px;
+}
+@media (max-width: 720px) {
+  .kwvr-tt-month-btn {
+    padding: 10px 12px;
+  }
+  .month-day {
+    min-height: 44px;
+  }
+}

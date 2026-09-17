@@ -1,0 +1,2711 @@
+{
+  "version": 1,
+  "document": {
+    "title": "TRAIN TIMETABLES",
+    "intro": "Choose your travel date from the calendar below, then match the letter shown to the relevant timetable panel. When trains are not running, the “Rail Story” museums and exhibitions at Ingrow Station are usually open.",
+    "specialKey": "S Special Event Timetable, see website for details.",
+    "footnote": "The hours or times stated in the Company's Timetables, Books, Bills and Notices are appointed as those at which it is intended — so far as circumstances will permit — that the trains shall depart from and arrive at the several stations."
+  },
+  "palette": [
+    {
+      "letter": "A",
+      "name": "Blue",
+      "fill": "#2c6aa0",
+      "text": "#ffffff"
+    },
+    {
+      "letter": "B",
+      "name": "Green",
+      "fill": "#2f7a3c",
+      "text": "#ffffff"
+    },
+    {
+      "letter": "C",
+      "name": "Orange",
+      "fill": "#e06a12",
+      "text": "#ffffff"
+    },
+    {
+      "letter": "E",
+      "name": "Pink",
+      "fill": "#d25686",
+      "text": "#ffffff"
+    },
+    {
+      "letter": "F",
+      "name": "Purple",
+      "fill": "#6b3f91",
+      "text": "#ffffff"
+    },
+    {
+      "letter": "G",
+      "name": "Brown",
+      "fill": "#6a4a2b",
+      "text": "#ffffff"
+    },
+    {
+      "letter": "S",
+      "name": "Special",
+      "fill": "#8a1f24",
+      "text": "#ffffff"
+    }
+  ],
+  "calendar": {
+    "startMonth": "2026-11",
+    "monthCount": 5,
+    "style": {
+      "nonRunningFill": "#cccccc",
+      "nonRunningOpacity": 100,
+      "otherMonthsFill": "#cccccc",
+      "otherMonthsOpacity": 50
+    },
+    "cells": {
+      "2026-11-02": "C",
+      "2026-11-07": "B",
+      "2026-11-08": "C",
+      "2026-11-14": "A",
+      "2026-11-15": "C",
+      "2026-11-21": "B",
+      "2026-11-22": "C",
+      "2026-11-27": "F",
+      "2026-11-28": "F",
+      "2026-12-04": "G",
+      "2026-12-05": "F",
+      "2026-12-06": "F",
+      "2026-12-11": "G",
+      "2026-12-12": "F",
+      "2026-12-18": "G",
+      "2026-12-19": "F",
+      "2026-12-20": "F",
+      "2026-12-21": "F",
+      "2026-12-22": "F",
+      "2026-12-23": "F",
+      "2026-12-24": "F",
+      "2026-12-25": "E",
+      "2026-12-26": "E",
+      "2026-12-27": "E",
+      "2026-12-28": "E",
+      "2026-12-29": "E",
+      "2026-12-30": "E",
+      "2026-12-31": "E",
+      "2027-01-01": "E",
+      "2027-01-02": "E",
+      "2027-01-03": "E",
+      "2027-01-09": "A",
+      "2027-01-10": "C",
+      "2027-01-16": "B",
+      "2027-01-17": "C",
+      "2027-01-23": "A",
+      "2027-01-24": "C",
+      "2027-01-30": "S",
+      "2027-01-31": "S",
+      "2027-02-06": "B",
+      "2027-02-07": "C",
+      "2027-02-13": "S",
+      "2027-02-14": "S",
+      "2027-02-15": "S",
+      "2027-02-16": "C",
+      "2027-02-17": "S",
+      "2027-02-18": "S",
+      "2027-02-19": "S",
+      "2027-02-20": "S",
+      "2027-02-21": "S",
+      "2027-02-27": "A",
+      "2027-02-28": "C",
+      "2027-03-06": "B",
+      "2027-03-07": "C",
+      "2027-03-13": "A",
+      "2027-03-14": "C",
+      "2027-03-20": "S",
+      "2027-03-21": "S"
+    },
+    "events": {
+      "2026-12-24": [
+        {
+          "title": "Santa Special",
+          "url": "#"
+        }
+      ],
+      "2026-12-25": [
+        {
+          "title": "Santa Special",
+          "url": "#"
+        }
+      ],
+      "2027-01-30": [
+        {
+          "title": "Winter gala",
+          "url": "#"
+        }
+      ]
+    }
+  },
+  "stations": [
+    {
+      "id": "oxenhope",
+      "name": "Oxenhope",
+      "iconIds": []
+    },
+    {
+      "id": "haworth",
+      "name": "Haworth",
+      "iconIds": []
+    },
+    {
+      "id": "oakworth",
+      "name": "Oakworth",
+      "iconIds": []
+    },
+    {
+      "id": "damems",
+      "name": "Damems",
+      "iconIds": []
+    },
+    {
+      "id": "ingrow",
+      "name": "Ingrow",
+      "iconIds": []
+    },
+    {
+      "id": "keighley",
+      "name": "Keighley",
+      "iconIds": []
+    }
+  ],
+  "panels": [
+    {
+      "id": "a4ea0320-15ea-441a-8882-d46aca89f178",
+      "letter": "A",
+      "outbound": {
+        "rows": [
+          {
+            "stationId": "oxenhope",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "keighley",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "b7b2d9eb-1658-4ca7-ae93-22812a3096db",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": ""
+              },
+              "haworth": {
+                "value": "0922"
+              },
+              "oakworth": {
+                "value": "0925"
+              },
+              "damems": {
+                "value": "0930",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "0933"
+              },
+              "keighley": {
+                "value": "0943"
+              }
+            }
+          },
+          {
+            "id": "dd56e53a-caa7-4f1c-888b-fe73ec3215bf",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1015"
+              },
+              "haworth": {
+                "value": "1025"
+              },
+              "oakworth": {
+                "value": "1025"
+              },
+              "damems": {
+                "value": "1030",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1033"
+              },
+              "keighley": {
+                "value": "1040"
+              }
+            }
+          },
+          {
+            "id": "1718e6ef-48af-4a61-b0a9-911ac6cbbfbb",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1100"
+              },
+              "haworth": {
+                "value": "1107"
+              },
+              "oakworth": {
+                "value": "1110"
+              },
+              "damems": {
+                "value": "1115",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1118"
+              },
+              "keighley": {
+                "value": "1125"
+              }
+            }
+          },
+          {
+            "id": "fe0dafa6-1f23-4351-be7b-30b8b147bce8",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1145"
+              },
+              "haworth": {
+                "value": "1152"
+              },
+              "oakworth": {
+                "value": "1155"
+              },
+              "damems": {
+                "value": "1200",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1203"
+              },
+              "keighley": {
+                "value": "1210"
+              }
+            }
+          },
+          {
+            "id": "6db2ca0e-d964-4b0d-b868-280b707580ef",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1230"
+              },
+              "haworth": {
+                "value": "1237"
+              },
+              "oakworth": {
+                "value": "1240"
+              },
+              "damems": {
+                "value": "1245",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1248"
+              },
+              "keighley": {
+                "value": "1255"
+              }
+            }
+          },
+          {
+            "id": "e7ffe5f5-5226-41b8-a3de-91e8145a6378",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1340"
+              },
+              "haworth": {
+                "value": "1347"
+              },
+              "oakworth": {
+                "value": "1350"
+              },
+              "damems": {
+                "value": "1355",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1358"
+              },
+              "keighley": {
+                "value": "1405"
+              }
+            }
+          },
+          {
+            "id": "314ec88e-cbe1-4295-ad16-0073cef7091b",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1430"
+              },
+              "haworth": {
+                "value": "1437"
+              },
+              "oakworth": {
+                "value": "1440"
+              },
+              "damems": {
+                "value": "1445",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1448"
+              },
+              "keighley": {
+                "value": "1455"
+              }
+            }
+          },
+          {
+            "id": "b5420309-5854-4d44-afa5-51f374cb5ae9",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1520"
+              },
+              "haworth": {
+                "value": "1527"
+              },
+              "oakworth": {
+                "value": "1530"
+              },
+              "damems": {
+                "value": "1535",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1538"
+              },
+              "keighley": {
+                "value": "1545"
+              }
+            }
+          },
+          {
+            "id": "6c56cb18-d5a8-4a59-b8a3-8d46baedd671",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1605"
+              },
+              "haworth": {
+                "value": "1612"
+              },
+              "oakworth": {
+                "value": "1615"
+              },
+              "damems": {
+                "value": "1620",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1623"
+              },
+              "keighley": {
+                "value": "1630"
+              }
+            }
+          },
+          {
+            "id": "e2fe07d5-2a40-460c-a51c-a71407253cdc",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1650"
+              },
+              "haworth": {
+                "value": "1657"
+              },
+              "oakworth": {
+                "value": "1700"
+              },
+              "damems": {
+                "value": "1705",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1708"
+              },
+              "keighley": {
+                "value": "1715"
+              }
+            }
+          }
+        ]
+      },
+      "inbound": {
+        "rows": [
+          {
+            "stationId": "keighley",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oxenhope",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "1801f025-6b0d-4213-a551-99890bee92e6",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1015"
+              },
+              "ingrow": {
+                "value": "1022"
+              },
+              "damems": {
+                "value": "1025",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1029"
+              },
+              "haworth": {
+                "value": "1039"
+              },
+              "oxenhope": {
+                "value": "1045"
+              }
+            }
+          },
+          {
+            "id": "eacadb3f-22c2-489d-9b59-34edea024e0a",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1100"
+              },
+              "ingrow": {
+                "value": "1107"
+              },
+              "damems": {
+                "value": "1110",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1114"
+              },
+              "haworth": {
+                "value": "1124"
+              },
+              "oxenhope": {
+                "value": "1130"
+              }
+            }
+          },
+          {
+            "id": "b7ad3895-ec19-4337-af98-a8e2184655a0",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1145"
+              },
+              "ingrow": {
+                "value": "1152"
+              },
+              "damems": {
+                "value": "1155",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1159"
+              },
+              "haworth": {
+                "value": "1209"
+              },
+              "oxenhope": {
+                "value": "1215"
+              }
+            }
+          },
+          {
+            "id": "c9d27c00-3234-4598-a0fb-f37a3102e7ec",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1230"
+              },
+              "ingrow": {
+                "value": "1237"
+              },
+              "damems": {
+                "value": "1240",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1244"
+              },
+              "haworth": {
+                "value": "1254"
+              },
+              "oxenhope": {
+                "value": "1300"
+              }
+            }
+          },
+          {
+            "id": "5c944d1d-add3-4b00-9837-fbfbd601ee6f",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1340"
+              },
+              "ingrow": {
+                "value": "1347"
+              },
+              "damems": {
+                "value": "1350",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1354"
+              },
+              "haworth": {
+                "value": "1404"
+              },
+              "oxenhope": {
+                "value": "1410"
+              }
+            }
+          },
+          {
+            "id": "41a4d861-e72c-4869-9610-791215faaa66",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1430"
+              },
+              "ingrow": {
+                "value": "1437"
+              },
+              "damems": {
+                "value": "1440",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1444"
+              },
+              "haworth": {
+                "value": "1454"
+              },
+              "oxenhope": {
+                "value": "1500"
+              }
+            }
+          },
+          {
+            "id": "47b969fe-58d8-4863-aa11-8a558a60a2ea",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1520"
+              },
+              "ingrow": {
+                "value": "1527"
+              },
+              "damems": {
+                "value": "1530",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1534"
+              },
+              "haworth": {
+                "value": "1544"
+              },
+              "oxenhope": {
+                "value": "1550"
+              }
+            }
+          },
+          {
+            "id": "686842ac-bb0a-4504-b9c1-721dbbacb8d3",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1605"
+              },
+              "ingrow": {
+                "value": "1612"
+              },
+              "damems": {
+                "value": "1615",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1619"
+              },
+              "haworth": {
+                "value": "1629"
+              },
+              "oxenhope": {
+                "value": "1635"
+              }
+            }
+          },
+          {
+            "id": "4c2f0554-3ede-46c4-aef3-a3b03be43331",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1650"
+              },
+              "ingrow": {
+                "value": "1657"
+              },
+              "damems": {
+                "value": "1700",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1704"
+              },
+              "haworth": {
+                "value": "1714"
+              },
+              "oxenhope": {
+                "value": "1720"
+              }
+            }
+          },
+          {
+            "id": "0b035458-d90f-40ce-ae54-313ea87ff7cf",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1735"
+              },
+              "ingrow": {
+                "value": "1742"
+              },
+              "damems": {
+                "value": "1745",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1749"
+              },
+              "haworth": {
+                "value": "1759"
+              },
+              "oxenhope": {
+                "value": "1805"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "efce0246-f466-4a2a-811a-63cc40e40bf7",
+      "letter": "B",
+      "outbound": {
+        "rows": [
+          {
+            "stationId": "oxenhope",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "keighley",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "02ea7321-6fe4-46a5-9986-2674a94c3e21",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": ""
+              },
+              "haworth": {
+                "value": "0922"
+              },
+              "oakworth": {
+                "value": "0925"
+              },
+              "damems": {
+                "value": "0930",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "0933"
+              },
+              "keighley": {
+                "value": "0943"
+              }
+            }
+          },
+          {
+            "id": "d0c2b323-771b-4a85-b005-38e271de16b6",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1015"
+              },
+              "haworth": {
+                "value": "1025"
+              },
+              "oakworth": {
+                "value": "1025"
+              },
+              "damems": {
+                "value": "1030",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1033"
+              },
+              "keighley": {
+                "value": "1040"
+              }
+            }
+          },
+          {
+            "id": "c8c36098-2658-494b-8738-aaa5fc167510",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1100"
+              },
+              "haworth": {
+                "value": "1107"
+              },
+              "oakworth": {
+                "value": "1110"
+              },
+              "damems": {
+                "value": "1115",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1118"
+              },
+              "keighley": {
+                "value": "1125"
+              }
+            }
+          },
+          {
+            "id": "9ee74628-800c-41b5-b5fd-eae970e71129",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1145"
+              },
+              "haworth": {
+                "value": "1152"
+              },
+              "oakworth": {
+                "value": "1155"
+              },
+              "damems": {
+                "value": "1200",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1203"
+              },
+              "keighley": {
+                "value": "1210"
+              }
+            }
+          },
+          {
+            "id": "d62afd84-9311-46d0-b650-0e3277701460",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1340"
+              },
+              "haworth": {
+                "value": "1347"
+              },
+              "oakworth": {
+                "value": "1350"
+              },
+              "damems": {
+                "value": "1355",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1358"
+              },
+              "keighley": {
+                "value": "1405"
+              }
+            }
+          },
+          {
+            "id": "9f786256-971c-4e70-9b72-256051e0c3f3",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1520"
+              },
+              "haworth": {
+                "value": "1527"
+              },
+              "oakworth": {
+                "value": "1530"
+              },
+              "damems": {
+                "value": "1535",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1538"
+              },
+              "keighley": {
+                "value": "1545"
+              }
+            }
+          },
+          {
+            "id": "a5e33a8e-bbb5-4d99-bd67-6c04c774bc94",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1650"
+              },
+              "haworth": {
+                "value": "1657"
+              },
+              "oakworth": {
+                "value": "1700"
+              },
+              "damems": {
+                "value": "1705",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1708"
+              },
+              "keighley": {
+                "value": "1715"
+              }
+            }
+          }
+        ]
+      },
+      "inbound": {
+        "rows": [
+          {
+            "stationId": "keighley",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oxenhope",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "f33ce027-2bb8-44bd-a468-713b1b93066a",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1015"
+              },
+              "ingrow": {
+                "value": "1022"
+              },
+              "damems": {
+                "value": "1025",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1029"
+              },
+              "haworth": {
+                "value": "1039"
+              },
+              "oxenhope": {
+                "value": "1045"
+              }
+            }
+          },
+          {
+            "id": "09cb035d-44ec-4d37-ad84-b742856ccd23",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1100"
+              },
+              "ingrow": {
+                "value": "1107"
+              },
+              "damems": {
+                "value": "1110",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1114"
+              },
+              "haworth": {
+                "value": "1124"
+              },
+              "oxenhope": {
+                "value": "1130"
+              }
+            }
+          },
+          {
+            "id": "44c2e1a6-a380-4d99-8d18-96988105f837",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1145"
+              },
+              "ingrow": {
+                "value": "1152"
+              },
+              "damems": {
+                "value": "1155",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1159"
+              },
+              "haworth": {
+                "value": "1209"
+              },
+              "oxenhope": {
+                "value": "1215"
+              }
+            }
+          },
+          {
+            "id": "baba70e1-e834-4694-a75b-d37d7ba11412",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1230"
+              },
+              "ingrow": {
+                "value": "1237"
+              },
+              "damems": {
+                "value": "1240",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1244"
+              },
+              "haworth": {
+                "value": "1254"
+              },
+              "oxenhope": {
+                "value": "1300"
+              }
+            }
+          },
+          {
+            "id": "c2a626b9-9404-47bc-8ce3-a1813ff5c961",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1430"
+              },
+              "ingrow": {
+                "value": "1437"
+              },
+              "damems": {
+                "value": "1440",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1444"
+              },
+              "haworth": {
+                "value": "1454"
+              },
+              "oxenhope": {
+                "value": "1500"
+              }
+            }
+          },
+          {
+            "id": "c4163548-eacd-497f-8c96-747c19e6213a",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1605"
+              },
+              "ingrow": {
+                "value": "1612"
+              },
+              "damems": {
+                "value": "1615",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1619"
+              },
+              "haworth": {
+                "value": "1629"
+              },
+              "oxenhope": {
+                "value": "1635"
+              }
+            }
+          },
+          {
+            "id": "df7dd52f-4e13-4765-ae48-d64e261b1c0b",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1735"
+              },
+              "ingrow": {
+                "value": "1742"
+              },
+              "damems": {
+                "value": "1745",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1749"
+              },
+              "haworth": {
+                "value": "1759"
+              },
+              "oxenhope": {
+                "value": "1805"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "a70af7aa-26ec-420e-ba18-41b2625cae73",
+      "letter": "C",
+      "outbound": {
+        "rows": [
+          {
+            "stationId": "oxenhope",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "keighley",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "394d3898-a8b8-4eab-a0f7-a0871b633fff",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": ""
+              },
+              "haworth": {
+                "value": "0922"
+              },
+              "oakworth": {
+                "value": "0925"
+              },
+              "damems": {
+                "value": "0930",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "0933"
+              },
+              "keighley": {
+                "value": "0943"
+              }
+            }
+          },
+          {
+            "id": "bbab0363-1843-4904-add4-89bf79bdea69",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1015"
+              },
+              "haworth": {
+                "value": "1025"
+              },
+              "oakworth": {
+                "value": "1025"
+              },
+              "damems": {
+                "value": "1030",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1033"
+              },
+              "keighley": {
+                "value": "1040"
+              }
+            }
+          },
+          {
+            "id": "1705c8d6-712e-4806-9dd3-7b6df689361c",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1100"
+              },
+              "haworth": {
+                "value": "1107"
+              },
+              "oakworth": {
+                "value": "1110"
+              },
+              "damems": {
+                "value": "1115",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1118"
+              },
+              "keighley": {
+                "value": "1125"
+              }
+            }
+          },
+          {
+            "id": "5bb3f844-0489-4ce1-8d55-188986d39b73",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1145"
+              },
+              "haworth": {
+                "value": "1152"
+              },
+              "oakworth": {
+                "value": "1155"
+              },
+              "damems": {
+                "value": "1200",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1203"
+              },
+              "keighley": {
+                "value": "1210"
+              }
+            }
+          },
+          {
+            "id": "0f082de6-db1d-4741-8a2e-a904291bf2b2",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1230"
+              },
+              "haworth": {
+                "value": "1237"
+              },
+              "oakworth": {
+                "value": "1240"
+              },
+              "damems": {
+                "value": "1245",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1248"
+              },
+              "keighley": {
+                "value": "1255"
+              }
+            }
+          },
+          {
+            "id": "266e39da-da36-4fce-acae-3cb709f8bcf7",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1340"
+              },
+              "haworth": {
+                "value": "1347"
+              },
+              "oakworth": {
+                "value": "1350"
+              },
+              "damems": {
+                "value": "1355",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1358"
+              },
+              "keighley": {
+                "value": "1405"
+              }
+            }
+          },
+          {
+            "id": "1569e96c-f4c8-40c2-9c62-d1272d634a75",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1430"
+              },
+              "haworth": {
+                "value": "1437"
+              },
+              "oakworth": {
+                "value": "1440"
+              },
+              "damems": {
+                "value": "1445",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1448"
+              },
+              "keighley": {
+                "value": "1455"
+              }
+            }
+          },
+          {
+            "id": "999e19b0-8a28-403e-a6c0-57e1a06ced74",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1520"
+              },
+              "haworth": {
+                "value": "1527"
+              },
+              "oakworth": {
+                "value": "1530"
+              },
+              "damems": {
+                "value": "1535",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1538"
+              },
+              "keighley": {
+                "value": "1545"
+              }
+            }
+          },
+          {
+            "id": "624b5438-6607-4cbc-82ef-c943565b586a",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1605"
+              },
+              "haworth": {
+                "value": "1612"
+              },
+              "oakworth": {
+                "value": "1615"
+              },
+              "damems": {
+                "value": "1620",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1623"
+              },
+              "keighley": {
+                "value": "1630"
+              }
+            }
+          }
+        ]
+      },
+      "inbound": {
+        "rows": [
+          {
+            "stationId": "keighley",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oxenhope",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "099f32d3-a275-4956-a30d-ba83bd49deab",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1015"
+              },
+              "ingrow": {
+                "value": "1022"
+              },
+              "damems": {
+                "value": "1025",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1029"
+              },
+              "haworth": {
+                "value": "1039"
+              },
+              "oxenhope": {
+                "value": "1045"
+              }
+            }
+          },
+          {
+            "id": "462fcdf7-c629-4b4c-b766-14129d487ae1",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1100"
+              },
+              "ingrow": {
+                "value": "1107"
+              },
+              "damems": {
+                "value": "1110",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1114"
+              },
+              "haworth": {
+                "value": "1124"
+              },
+              "oxenhope": {
+                "value": "1130"
+              }
+            }
+          },
+          {
+            "id": "e1ea238f-b7b2-4068-94a4-c899b2bd92b2",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1145"
+              },
+              "ingrow": {
+                "value": "1152"
+              },
+              "damems": {
+                "value": "1155",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1159"
+              },
+              "haworth": {
+                "value": "1209"
+              },
+              "oxenhope": {
+                "value": "1215"
+              }
+            }
+          },
+          {
+            "id": "a831779a-96b5-491b-afe7-3f56de60c3df",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1230"
+              },
+              "ingrow": {
+                "value": "1237"
+              },
+              "damems": {
+                "value": "1240",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1244"
+              },
+              "haworth": {
+                "value": "1254"
+              },
+              "oxenhope": {
+                "value": "1300"
+              }
+            }
+          },
+          {
+            "id": "fc1d3805-725b-46c7-8c04-e457f0e8cf17",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1340"
+              },
+              "ingrow": {
+                "value": "1347"
+              },
+              "damems": {
+                "value": "1350",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1354"
+              },
+              "haworth": {
+                "value": "1404"
+              },
+              "oxenhope": {
+                "value": "1410"
+              }
+            }
+          },
+          {
+            "id": "92e297c3-4705-44ae-b0b1-d5fd76e439a0",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1430"
+              },
+              "ingrow": {
+                "value": "1437"
+              },
+              "damems": {
+                "value": "1440",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1444"
+              },
+              "haworth": {
+                "value": "1454"
+              },
+              "oxenhope": {
+                "value": "1500"
+              }
+            }
+          },
+          {
+            "id": "b0a050d5-bdbc-49c0-bc4f-1b0f680a6bcd",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1520"
+              },
+              "ingrow": {
+                "value": "1527"
+              },
+              "damems": {
+                "value": "1530",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1534"
+              },
+              "haworth": {
+                "value": "1544"
+              },
+              "oxenhope": {
+                "value": "1550"
+              }
+            }
+          },
+          {
+            "id": "d1977111-5092-470b-9372-5cdc726fc127",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1605"
+              },
+              "ingrow": {
+                "value": "1612"
+              },
+              "damems": {
+                "value": "1615",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1619"
+              },
+              "haworth": {
+                "value": "1629"
+              },
+              "oxenhope": {
+                "value": "1635"
+              }
+            }
+          },
+          {
+            "id": "8edc19c7-bc1d-427e-bcba-d032b808f3c8",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1650"
+              },
+              "ingrow": {
+                "value": "1657"
+              },
+              "damems": {
+                "value": "1700",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1704"
+              },
+              "haworth": {
+                "value": "1714"
+              },
+              "oxenhope": {
+                "value": "-"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "d4f99d51-c4be-4c2e-b4d7-740baeb98f4b",
+      "letter": "E",
+      "outbound": {
+        "rows": [
+          {
+            "stationId": "oxenhope",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "keighley",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "152c798a-1cfe-4d7e-8ae5-4b059c340b06",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "0945"
+              },
+              "haworth": {
+                "value": "0952"
+              },
+              "oakworth": {
+                "value": "0955"
+              },
+              "damems": {
+                "value": "1000",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1003"
+              },
+              "keighley": {
+                "value": "1013"
+              }
+            }
+          },
+          {
+            "id": "0dd7dd7c-678d-4ccd-b124-ab7dcfd31df8",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1045"
+              },
+              "haworth": {
+                "value": "1052"
+              },
+              "oakworth": {
+                "value": "1055"
+              },
+              "damems": {
+                "value": "1100",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1103"
+              },
+              "keighley": {
+                "value": "1110"
+              }
+            }
+          },
+          {
+            "id": "23384298-f31c-49dc-b630-2bb9932e9fa6",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1135"
+              },
+              "haworth": {
+                "value": "1142"
+              },
+              "oakworth": {
+                "value": "1145"
+              },
+              "damems": {
+                "value": "1150",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1153"
+              },
+              "keighley": {
+                "value": "1200"
+              }
+            }
+          },
+          {
+            "id": "46ddf638-14dd-4617-9b74-6eefc47eefe0",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1225"
+              },
+              "haworth": {
+                "value": "1232"
+              },
+              "oakworth": {
+                "value": "1235"
+              },
+              "damems": {
+                "value": "1240",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1243"
+              },
+              "keighley": {
+                "value": "1250"
+              }
+            }
+          },
+          {
+            "id": "b8a31486-dd4e-44dd-955e-ef82ad5c3b12",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1310"
+              },
+              "haworth": {
+                "value": "1317"
+              },
+              "oakworth": {
+                "value": "1320"
+              },
+              "damems": {
+                "value": "1325",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1328"
+              },
+              "keighley": {
+                "value": "1335"
+              }
+            }
+          },
+          {
+            "id": "acbd237b-f2a9-4008-b254-c46885653dc0",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1420"
+              },
+              "haworth": {
+                "value": "1427"
+              },
+              "oakworth": {
+                "value": "1430"
+              },
+              "damems": {
+                "value": "1435",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1438"
+              },
+              "keighley": {
+                "value": "1445"
+              }
+            }
+          },
+          {
+            "id": "580af773-cf18-4be0-946c-7e874e521f51",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1510"
+              },
+              "haworth": {
+                "value": "1517"
+              },
+              "oakworth": {
+                "value": "1520"
+              },
+              "damems": {
+                "value": "1525",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1528"
+              },
+              "keighley": {
+                "value": "1535"
+              }
+            }
+          },
+          {
+            "id": "6df9805f-47e9-4bbe-b2b0-b17e6d60750c",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1600"
+              },
+              "haworth": {
+                "value": "1607"
+              },
+              "oakworth": {
+                "value": "1610"
+              },
+              "damems": {
+                "value": "1615",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1618"
+              },
+              "keighley": {
+                "value": "1625"
+              }
+            }
+          }
+        ]
+      },
+      "inbound": {
+        "rows": [
+          {
+            "stationId": "keighley",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oxenhope",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "e802f9b5-1c60-46e2-8bab-dab26af797b6",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1045"
+              },
+              "ingrow": {
+                "value": "1052"
+              },
+              "damems": {
+                "value": "1055",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1059"
+              },
+              "haworth": {
+                "value": "1109"
+              },
+              "oxenhope": {
+                "value": "1115"
+              }
+            }
+          },
+          {
+            "id": "85dd63af-c267-4227-94c5-f65c13b1cc54",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1135"
+              },
+              "ingrow": {
+                "value": "1142"
+              },
+              "damems": {
+                "value": "1145",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1149"
+              },
+              "haworth": {
+                "value": "1159"
+              },
+              "oxenhope": {
+                "value": "1205"
+              }
+            }
+          },
+          {
+            "id": "591bd908-46b5-4c14-a5ef-781c9e560d5b",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1225"
+              },
+              "ingrow": {
+                "value": "1232"
+              },
+              "damems": {
+                "value": "1235",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1239"
+              },
+              "haworth": {
+                "value": "1249"
+              },
+              "oxenhope": {
+                "value": "1255"
+              }
+            }
+          },
+          {
+            "id": "63b29f91-2f3e-4e46-81d7-928f8b19c24f",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1310"
+              },
+              "ingrow": {
+                "value": "1317"
+              },
+              "damems": {
+                "value": "1320",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1324"
+              },
+              "haworth": {
+                "value": "1334"
+              },
+              "oxenhope": {
+                "value": "1340"
+              }
+            }
+          },
+          {
+            "id": "4b168dd6-bee2-4965-b180-41480446d4a6",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1420"
+              },
+              "ingrow": {
+                "value": "1427"
+              },
+              "damems": {
+                "value": "1430",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1434"
+              },
+              "haworth": {
+                "value": "1444"
+              },
+              "oxenhope": {
+                "value": "1450"
+              }
+            }
+          },
+          {
+            "id": "493f47f6-5ada-473f-a160-c524f76559ed",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1510"
+              },
+              "ingrow": {
+                "value": "1517"
+              },
+              "damems": {
+                "value": "1520",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1524"
+              },
+              "haworth": {
+                "value": "1534"
+              },
+              "oxenhope": {
+                "value": "1540"
+              }
+            }
+          },
+          {
+            "id": "ded1cea7-6222-4c52-9760-894b9e785d03",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1600"
+              },
+              "ingrow": {
+                "value": "1607"
+              },
+              "damems": {
+                "value": "1610",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1614"
+              },
+              "haworth": {
+                "value": "1624"
+              },
+              "oxenhope": {
+                "value": "1630"
+              }
+            }
+          },
+          {
+            "id": "e0c9cb67-9224-4269-9022-e37db351d9d7",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1645"
+              },
+              "ingrow": {
+                "value": "1652"
+              },
+              "damems": {
+                "value": "1655",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1659"
+              },
+              "haworth": {
+                "value": "1709"
+              },
+              "oxenhope": {
+                "value": "1715"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "9b511391-f0cf-4ffe-8205-edbed407e8ad",
+      "letter": "F",
+      "outbound": {
+        "rows": [
+          {
+            "stationId": "oxenhope",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "keighley",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "573038aa-3cc5-4484-b17d-26d0a20794e5",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1040"
+              },
+              "haworth": {
+                "value": "1046"
+              },
+              "oakworth": {
+                "value": "1050"
+              },
+              "damems": {
+                "value": "1056",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1059"
+              },
+              "keighley": {
+                "value": "1105"
+              }
+            }
+          },
+          {
+            "id": "2d5afe70-e759-41c5-b360-a0998e5819a0",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1210"
+              },
+              "haworth": {
+                "value": "1216"
+              },
+              "oakworth": {
+                "value": "1219"
+              },
+              "damems": {
+                "value": "1226",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1229"
+              },
+              "keighley": {
+                "value": "1235"
+              }
+            }
+          },
+          {
+            "id": "a54d26a4-c807-48a8-9875-5803632f075e",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1355"
+              },
+              "haworth": {
+                "value": "1401"
+              },
+              "oakworth": {
+                "value": "1404"
+              },
+              "damems": {
+                "value": "1411",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1414"
+              },
+              "keighley": {
+                "value": "1420"
+              }
+            }
+          },
+          {
+            "id": "5993e13d-47b0-4319-abd0-e7ff5f359c0f",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1525"
+              },
+              "haworth": {
+                "value": "1531"
+              },
+              "oakworth": {
+                "value": "1534"
+              },
+              "damems": {
+                "value": "1541",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1544"
+              },
+              "keighley": {
+                "value": "1550"
+              }
+            }
+          },
+          {
+            "id": "1aacabfd-de9f-4962-8f8b-ff500c0b39e3",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1655"
+              },
+              "haworth": {
+                "value": "1701"
+              },
+              "oakworth": {
+                "value": "1704"
+              },
+              "damems": {
+                "value": "1711",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1714"
+              },
+              "keighley": {
+                "value": "1720"
+              }
+            }
+          }
+        ]
+      },
+      "inbound": {
+        "rows": [
+          {
+            "stationId": "keighley",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oxenhope",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "14a18141-c5c3-441b-aeba-08e6ff788451",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1000"
+              },
+              "ingrow": {
+                "value": "1006"
+              },
+              "damems": {
+                "value": "1009",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1015"
+              },
+              "haworth": {
+                "value": "1019"
+              },
+              "oxenhope": {
+                "value": "1025"
+              }
+            }
+          },
+          {
+            "id": "254c2396-dd80-44e4-b943-19c309ca8113",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1130"
+              },
+              "ingrow": {
+                "value": "1136"
+              },
+              "damems": {
+                "value": "1139",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1145"
+              },
+              "haworth": {
+                "value": "1150"
+              },
+              "oxenhope": {
+                "value": "1155"
+              }
+            }
+          },
+          {
+            "id": "a3b162d1-5e90-45c5-8788-22ff5759dbe3",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1315"
+              },
+              "ingrow": {
+                "value": "1321"
+              },
+              "damems": {
+                "value": "1324",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1330"
+              },
+              "haworth": {
+                "value": "1334"
+              },
+              "oxenhope": {
+                "value": "1340"
+              }
+            }
+          },
+          {
+            "id": "079c731d-2d6e-4843-bc0e-270ca850bd6d",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1445"
+              },
+              "ingrow": {
+                "value": "1451"
+              },
+              "damems": {
+                "value": "1454",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1500"
+              },
+              "haworth": {
+                "value": "1504"
+              },
+              "oxenhope": {
+                "value": "1510"
+              }
+            }
+          },
+          {
+            "id": "df611b71-ac40-46ac-8166-dc7a6dfb8356",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1615"
+              },
+              "ingrow": {
+                "value": "1621"
+              },
+              "damems": {
+                "value": "1624",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1630"
+              },
+              "haworth": {
+                "value": "1634"
+              },
+              "oxenhope": {
+                "value": "1640"
+              }
+            }
+          }
+        ]
+      }
+    },
+    {
+      "id": "4494b2e9-e06d-45d8-a6de-033f2fb7bc15",
+      "letter": "G",
+      "outbound": {
+        "rows": [
+          {
+            "stationId": "oxenhope",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "keighley",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "fd326ba3-2f71-42db-913c-8ab0428f08dc",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": ""
+              },
+              "haworth": {
+                "value": "0947"
+              },
+              "oakworth": {
+                "value": "0952"
+              },
+              "damems": {
+                "value": "0955",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "0958"
+              },
+              "keighley": {
+                "value": "1005"
+              }
+            }
+          },
+          {
+            "id": "05841820-b50c-49e9-8fae-df7d10501eee",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1140"
+              },
+              "haworth": {
+                "value": "1147"
+              },
+              "oakworth": {
+                "value": "1152"
+              },
+              "damems": {
+                "value": "1155",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1158"
+              },
+              "keighley": {
+                "value": "1205"
+              }
+            }
+          },
+          {
+            "id": "4814ab44-7fb0-4b85-9988-e0f3f736163f",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1340"
+              },
+              "haworth": {
+                "value": "1347"
+              },
+              "oakworth": {
+                "value": "1352"
+              },
+              "damems": {
+                "value": "1355",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1358"
+              },
+              "keighley": {
+                "value": "1405"
+              }
+            }
+          },
+          {
+            "id": "ca40ee32-fcb8-4dcd-b455-306e9bcae4b5",
+            "noteIconIds": [],
+            "times": {
+              "oxenhope": {
+                "value": "1540"
+              },
+              "haworth": {
+                "value": "1547"
+              },
+              "oakworth": {
+                "value": "1552"
+              },
+              "damems": {
+                "value": "1555",
+                "style": "italic"
+              },
+              "ingrow": {
+                "value": "1558"
+              },
+              "keighley": {
+                "value": "1605"
+              }
+            }
+          }
+        ]
+      },
+      "inbound": {
+        "rows": [
+          {
+            "stationId": "keighley",
+            "dir": "d"
+          },
+          {
+            "stationId": "ingrow",
+            "dir": "d"
+          },
+          {
+            "stationId": "damems",
+            "dir": "d"
+          },
+          {
+            "stationId": "oakworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "haworth",
+            "dir": "d"
+          },
+          {
+            "stationId": "oxenhope",
+            "dir": "a"
+          }
+        ],
+        "services": [
+          {
+            "id": "87f1ef53-ef04-4537-ae33-3c15a13b6d4a",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1030"
+              },
+              "ingrow": {
+                "value": "1037"
+              },
+              "damems": {
+                "value": "1040",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1044"
+              },
+              "haworth": {
+                "value": "1050"
+              },
+              "oxenhope": {
+                "value": "1055"
+              }
+            }
+          },
+          {
+            "id": "135235b5-8144-40c8-87e6-6e258b38855d",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1230"
+              },
+              "ingrow": {
+                "value": "1237"
+              },
+              "damems": {
+                "value": "1240",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1244"
+              },
+              "haworth": {
+                "value": "1250"
+              },
+              "oxenhope": {
+                "value": "1255"
+              }
+            }
+          },
+          {
+            "id": "ce4dcd75-19ac-4c7d-bf3c-46867ea56ae4",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1430"
+              },
+              "ingrow": {
+                "value": "1437"
+              },
+              "damems": {
+                "value": "1440",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1444"
+              },
+              "haworth": {
+                "value": "1450"
+              },
+              "oxenhope": {
+                "value": "1455"
+              }
+            }
+          },
+          {
+            "id": "b8dc1c39-2b49-48b8-8ab7-596874fa33bb",
+            "noteIconIds": [],
+            "times": {
+              "keighley": {
+                "value": "1625"
+              },
+              "ingrow": {
+                "value": "1632"
+              },
+              "damems": {
+                "value": "1635",
+                "style": "italic"
+              },
+              "oakworth": {
+                "value": "1639"
+              },
+              "haworth": {
+                "value": "1645"
+              },
+              "oxenhope": {
+                "value": "1700"
+              }
+            }
+          }
+        ]
+      }
+    }
+  ]
+}
