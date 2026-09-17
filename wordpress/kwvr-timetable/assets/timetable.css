@@ -139,11 +139,33 @@
   font-size: 0.85rem;
   line-height: 1.4;
 }
-.kwvr-icon {
-  display: inline-block;
-  width: 12px;
+.kwvr-icon,
+.icon-mark {
+  display: block;
   height: 12px;
+  fill: currentColor;
+  overflow: visible;
+  flex: none;
+}
+.icons {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 12px;
+  gap: 3px;
+  flex: none;
   vertical-align: middle;
+}
+.panel-table tr.notes-row .icons-notes {
+  height: 24px;
+  width: 100%;
+  margin-left: 0;
+  vertical-align: middle;
+}
+.icons-station {
+  margin-left: 0.3em;
+  position: relative;
+  top: -0.75px;
 }
 .cal-grid {
   display: grid;
@@ -222,12 +244,6 @@
 }
 .panel-table .time.italic {
   font-style: italic;
-}
-.icons {
-  display: inline-flex;
-  align-items: center;
-  gap: 3px;
-  margin-left: 0.3em;
 }
 .month-wrap {
   display: grid;

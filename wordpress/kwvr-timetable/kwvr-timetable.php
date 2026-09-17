@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.8
+ * Version: 1.5.9
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.8");
+define("KWVR_TT_VERSION", "1.5.9");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -533,9 +533,9 @@ function kwvr_tt_tint($hex)
     return sprintf("rgb(%d,%d,%d)", (int) round($r * 0.25 + 255 * 0.75), (int) round($g * 0.25 + 255 * 0.75), (int) round($b * 0.25 + 255 * 0.75));
 }
 
-function kwvr_tt_icon_html($ids, $base)
+function kwvr_tt_icon_html($ids, $base, $kind = "station")
 {
-    if (!$base || !is_array($ids)) {
+    if (!is_array($ids)) {
         return "";
     }
     $html = "";
@@ -544,10 +544,220 @@ function kwvr_tt_icon_html($ids, $base)
         if ($id === "") {
             continue;
         }
+        $mark = kwvr_tt_fitted_icon($id);
+        if ($mark) {
+            $html .= $mark;
+            continue;
+        }
+        if (!$base) {
+            continue;
+        }
         $src = trailingslashit($base) . $id . ".svg";
         $html .= '<img class="kwvr-icon" src="' . esc_url($src) . '" alt="" width="12" height="12" />';
     }
-    return $html ? '<span class="icons">' . $html . "</span>" : "";
+    if ($html === "") {
+        return "";
+    }
+    $cls = $kind === "notes" ? "icons icons-notes" : "icons icons-station";
+    return '<span class="' . $cls . '">' . $html . "</span>";
+}
+
+function kwvr_tt_fitted_icon($id)
+{
+    $geom = kwvr_tt_icon_geom($id);
+    if (!$geom) {
+        return "";
+    }
+    return (
+        '<svg class="icon-mark" viewBox="' .
+        esc_attr($geom["vb"]) .
+        '" width="' .
+        esc_attr((string) round($geom["ratio"] * 12, 2)) .
+        '" height="12" aria-hidden="true">' .
+        $geom["inner"] .
+        "</svg>"
+    );
+}
+
+function kwvr_tt_icon_geom($id)
+{
+    static $cache = [];
+    if (array_key_exists($id, $cache)) {
+        return $cache[$id];
+    }
+    $path = KWVR_TT_DIR . "icons/" . $id . ".svg";
+    if (!is_readable($path)) {
+        $cache[$id] = null;
+        return null;
+    }
+    $raw = (string) file_get_contents($path);
+    if (!preg_match_all('/<path\b([^>]*)\/?>/i', $raw, $paths)) {
+        $cache[$id] = null;
+        return null;
+    }
+    $ds = [];
+    $min_x = INF;
+    $min_y = INF;
+    $max_x = -INF;
+    $max_y = -INF;
+    foreach ($paths[1] as $attrs) {
+        if (!preg_match('/\bd="([^"]+)"/', $attrs, $dm)) {
+            continue;
+        }
+        $d = $dm[1];
+        $ds[] = $d;
+        $b = kwvr_tt_path_bbox($d);
+        if (!$b) {
+            continue;
+        }
+        $min_x = min($min_x, $b[0]);
+        $min_y = min($min_y, $b[1]);
+        $max_x = max($max_x, $b[2]);
+        $max_y = max($max_y, $b[3]);
+    }
+    if (!$ds || !is_finite($min_x)) {
+        $cache[$id] = null;
+        return null;
+    }
+    $pad = max($max_x - $min_x, $max_y - $min_y) * 0.03;
+    $min_x -= $pad;
+    $min_y -= $pad;
+    $max_x += $pad;
+    $max_y += $pad;
+    $w = $max_x - $min_x;
+    $h = $max_y - $min_y;
+    if ($h <= 0) {
+        $cache[$id] = null;
+        return null;
+    }
+    $inner = "";
+    foreach ($ds as $d) {
+        $inner .= '<path d="' . esc_attr($d) . '" fill="currentColor"/>';
+    }
+    $cache[$id] = [
+        "vb" => $min_x . " " . $min_y . " " . $w . " " . $h,
+        "ratio" => $w / $h,
+        "inner" => $inner,
+    ];
+    return $cache[$id];
+}
+
+function kwvr_tt_path_bbox($d)
+{
+    if (!preg_match_all('/[MmLlHhVvCcQqTtSsAaZz]|-?\d*\.?\d+(?:e[-+]?\d+)?/i', $d, $m)) {
+        return null;
+    }
+    $tokens = $m[0];
+    $i = 0;
+    $n = count($tokens);
+    $cmd = "";
+    $x = 0.0;
+    $y = 0.0;
+    $min_x = INF;
+    $min_y = INF;
+    $max_x = -INF;
+    $max_y = -INF;
+    $add = function ($px, $py) use (&$min_x, &$min_y, &$max_x, &$max_y) {
+        $min_x = min($min_x, $px);
+        $min_y = min($min_y, $py);
+        $max_x = max($max_x, $px);
+        $max_y = max($max_y, $py);
+    };
+    $num = function () use (&$i, $tokens, $n) {
+        if ($i >= $n) {
+            return 0.0;
+        }
+        return (float) $tokens[$i++];
+    };
+    while ($i < $n) {
+        $t = $tokens[$i];
+        if (preg_match('/^[a-zA-Z]$/', $t)) {
+            $cmd = $t;
+            $i++;
+            if ($cmd === "Z" || $cmd === "z") {
+                continue;
+            }
+        }
+        $rel = $cmd === strtolower($cmd);
+        switch ($cmd) {
+            case "M":
+            case "m":
+            case "L":
+            case "l":
+            case "T":
+            case "t":
+                $nx = $num();
+                $ny = $num();
+                $x = $rel ? $x + $nx : $nx;
+                $y = $rel ? $y + $ny : $ny;
+                $add($x, $y);
+                if ($cmd === "M") {
+                    $cmd = "L";
+                }
+                if ($cmd === "m") {
+                    $cmd = "l";
+                }
+                break;
+            case "H":
+            case "h":
+                $nx = $num();
+                $x = $rel ? $x + $nx : $nx;
+                $add($x, $y);
+                break;
+            case "V":
+            case "v":
+                $ny = $num();
+                $y = $rel ? $y + $ny : $ny;
+                $add($x, $y);
+                break;
+            case "Q":
+            case "q":
+            case "S":
+            case "s":
+                $x1 = $num();
+                $y1 = $num();
+                $nx = $num();
+                $ny = $num();
+                $add($rel ? $x + $x1 : $x1, $rel ? $y + $y1 : $y1);
+                $x = $rel ? $x + $nx : $nx;
+                $y = $rel ? $y + $ny : $ny;
+                $add($x, $y);
+                break;
+            case "C":
+            case "c":
+                $x1 = $num();
+                $y1 = $num();
+                $x2 = $num();
+                $y2 = $num();
+                $nx = $num();
+                $ny = $num();
+                $add($rel ? $x + $x1 : $x1, $rel ? $y + $y1 : $y1);
+                $add($rel ? $x + $x2 : $x2, $rel ? $y + $y2 : $y2);
+                $x = $rel ? $x + $nx : $nx;
+                $y = $rel ? $y + $ny : $ny;
+                $add($x, $y);
+                break;
+            case "A":
+            case "a":
+                $num();
+                $num();
+                $num();
+                $num();
+                $num();
+                $nx = $num();
+                $ny = $num();
+                $x = $rel ? $x + $nx : $nx;
+                $y = $rel ? $y + $ny : $ny;
+                $add($x, $y);
+                break;
+            default:
+                $i++;
+        }
+    }
+    if (!is_finite($min_x)) {
+        return null;
+    }
+    return [$min_x, $min_y, $max_x, $max_y];
 }
 
 function kwvr_tt_station($doc, $id)
@@ -769,7 +979,7 @@ function kwvr_tt_block($doc, $block, $fill, $text, $banner, $follow, $icon_base)
     $html .= '<td class="name" style="' . $notes_style . '"><span class="notes-label">Notes</span></td>';
     $html .= '<td style="' . $notes_style . '"></td>';
     foreach ($services as $s) {
-        $html .= '<td class="time" style="' . $notes_style . '">' . kwvr_tt_icon_html($s["noteIconIds"] ?? [], $icon_base) . "</td>";
+        $html .= '<td class="time" style="' . $notes_style . '">' . kwvr_tt_icon_html($s["noteIconIds"] ?? [], $icon_base, "notes") . "</td>";
     }
     $html .= "</tr>";
     $i = 0;
@@ -783,7 +993,7 @@ function kwvr_tt_block($doc, $block, $fill, $text, $banner, $follow, $icon_base)
             $html .=
                 '<span class="station-cell">' .
                 esc_html($station["name"] ?? "") .
-                kwvr_tt_icon_html($station["iconIds"] ?? [], $icon_base) .
+                kwvr_tt_icon_html($station["iconIds"] ?? [], $icon_base, "station") .
                 "</span>";
         }
         $html .= "</td>";
