@@ -19,6 +19,7 @@ import {
 import { loadDoc, saveDoc, withoutDamemsIngrowIcons } from "./storage";
 import { TimetableSheet, type DirectionMode, type PreviewKind } from "./TimetableSheet";
 import type { CalendarStyle, DirectionBlock, PaletteEntry, TimetableDoc } from "./types";
+import { postTimetable } from "./publish";
 import { wordpressSnippet } from "./wordpress";
 
 const PAGES = [
@@ -128,6 +129,8 @@ export default function App() {
     const raw = hashPath();
     return raw === "file" || raw === "export";
   });
+  const [siteBusy, setSiteBusy] = useState<"save" | "publish" | "">("");
+  const [siteMsg, setSiteMsg] = useState("");
 
   useEffect(() => {
     if (sessionStorage.getItem("kwvr-stripped-damems-ingrow")) return;
@@ -240,6 +243,23 @@ export default function App() {
     }
   }
 
+  async function runSite(kind: "save" | "publish") {
+    if (!import.meta.env.DEV) {
+      setSiteMsg("Save and Publish only work in the local builder (npm run dev).");
+      return;
+    }
+    setSiteBusy(kind);
+    setSiteMsg("");
+    try {
+      const message = await postTimetable(kind === "save" ? "/api/save-timetable" : "/api/publish-timetable", doc);
+      setSiteMsg(message);
+    } catch (err) {
+      setSiteMsg(err instanceof Error ? err.message : "Could not save.");
+    } finally {
+      setSiteBusy("");
+    }
+  }
+
   function onJsonFile(file: File) {
     const reader = new FileReader();
     reader.onload = () => {
@@ -297,6 +317,13 @@ export default function App() {
         <header className="filebar">
           <span className="filebar-title">{fileTitle}</span>
           <div className="filebar-spacer" />
+          {siteMsg ? <span className="filebar-status">{siteMsg}</span> : null}
+          <button type="button" disabled={!!siteBusy} onClick={() => runSite("save")}>
+            {siteBusy === "save" ? "Saving…" : "Save changes"}
+          </button>
+          <button className="primary" type="button" disabled={!!siteBusy} onClick={() => runSite("publish")}>
+            {siteBusy === "publish" ? "Publishing…" : "Publish to site"}
+          </button>
           <button type="button" onClick={() => setTheme((t) => (t === "dark" ? "light" : "dark"))}>
             {theme === "dark" ? "Light mode" : "Dark mode"}
           </button>
