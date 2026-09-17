@@ -7,6 +7,16 @@
   max-width: none;
   width: 100%;
 }
+.kwvr-tt-page {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 0 24px;
+  box-sizing: border-box;
+  clear: both;
+}
 .kwvr-tt-page.kwvr-tt-width-full,
 .kwvr-tt-page.kwvr-tt-width-wide,
 .kwvr-tt-page.kwvr-tt-width-contained {
@@ -427,10 +437,17 @@ body.kwvr-tt-open {
 }
 @media (max-width: 720px) {
   .kwvr-tt-page {
-    padding-top: 4px;
-    padding-bottom: 24px;
+    padding: 4px 0 20px;
+    display: block;
   }
-  .kwvr-tt-live {
+  .kwvr-tt-page .kwvr-tt-live {
+    --kwvr-cal-max: 100%;
+    --kwvr-scale: 1;
+    --kwvr-day-gap: 6px;
+    width: 100% !important;
+    max-width: 100% !important;
+    margin-left: 0 !important;
+    margin-right: 0 !important;
     padding: 12px 8px 14px;
     border-radius: 16px;
   }
