@@ -2,7 +2,7 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.5.3
+ * Version: 1.5.4
  * Author: KWVR
  * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
@@ -11,7 +11,7 @@ if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.5.3");
+define("KWVR_TT_VERSION", "1.5.4");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
 
@@ -238,8 +238,8 @@ function kwvr_tt_settings_page()
           <tr>
             <th><label for="kwvr_tt_style_calendar_width">Calendar width</label></th>
             <td>
-              <?php kwvr_tt_style_select("calendar_width", $style["calendar_width"], ["full" => "Fill the page", "wide" => "Wide", "contained" => "Boxed (use Calendar size)"]); ?>
-              <p class="description">Fill the page stretches the calendar across the content area and centres it. Override per page with <code>[kwvr_timetable width="full"]</code>, <code>wide</code>, or <code>contained</code>.</p>
+              <?php kwvr_tt_style_select("calendar_width", $style["calendar_width"], ["full" => "Fill the content column", "wide" => "Wide", "contained" => "Narrow box"]); ?>
+              <p class="description">Stays inside the theme’s boxed layout and page margins. Use <code>[kwvr_timetable width="full"]</code> (default), <code>wide</code>, or <code>contained</code>.</p>
             </td>
           </tr>
           <tr>
@@ -560,9 +560,6 @@ function kwvr_tt_render($doc, $opts)
     $look = kwvr_tt_get_style();
     $width = kwvr_tt_pick($opts["width"] ?? "", ["full", "wide", "contained"], $look["calendar_width"] ?? "full");
     $page_class = "kwvr-tt-page kwvr-tt-width-" . $width;
-    if ($width === "full") {
-        $page_class .= " alignfull";
-    }
     $look_css = $look;
     $look_css["calendar_width"] = $width;
     echo '<div class="' . esc_attr($page_class) . '"><div class="kwvr-tt-live sheet" style="' . esc_attr(kwvr_tt_style_css($look_css)) . '" data-kwvr-names="' . esc_attr(wp_json_encode($names)) . '">';
