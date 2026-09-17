@@ -1,0 +1,49 @@
+name: Release WordPress plugin
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - wordpress/kwvr-timetable/**
+      - .github/workflows/release-plugin.yml
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Read plugin version
+        id: ver
+        run: |
+          VERSION=$(grep -m1 "Version:" wordpress/kwvr-timetable/kwvr-timetable.php | sed 's/.*Version:[[:space:]]*//' | tr -d '\r')
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if this version is already released
+        id: skip
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "v${{ steps.ver.outputs.version }}" >/dev/null 2>&1; then
+            echo "exists=1" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=0" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Zip plugin
+        if: steps.skip.outputs.exists == '0'
+        run: |
+          cd wordpress
+          zip -r ../kwvr-timetable.zip kwvr-timetable
+
+      - name: Create GitHub release
+        if: steps.skip.outputs.exists == '0'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "v${{ steps.ver.outputs.version }}" kwvr-timetable.zip \
+            --title "WordPress plugin ${{ steps.ver.outputs.version }}" \
+            --notes "Install or update KWVR Timetable from wp-admin → Updates."

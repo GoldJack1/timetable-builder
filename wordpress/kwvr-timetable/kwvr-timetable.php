@@ -2,17 +2,20 @@
 /**
  * Plugin Name: KWVR Timetable
  * Description: Test WordPress shortcode: colour “what’s on” months. Click a day to open that day’s timetable in an overlay. Works on any WP install; no live site required.
- * Version: 1.3.0
+ * Version: 1.4.0
  * Author: KWVR
+ * Plugin URI: https://github.com/GoldJack1/timetable-builder
  */
 
 if (!defined("ABSPATH")) {
     exit();
 }
 
-define("KWVR_TT_VERSION", "1.3.0");
+define("KWVR_TT_VERSION", "1.4.0");
 define("KWVR_TT_DIR", plugin_dir_path(__FILE__));
 define("KWVR_TT_URL", plugin_dir_url(__FILE__));
+
+require_once KWVR_TT_DIR . "includes/github-updater.php";
 
 add_action("admin_menu", function () {
     add_options_page("KWVR Timetable", "KWVR Timetable", "manage_options", "kwvr-timetable", "kwvr_tt_settings_page");
@@ -21,6 +24,16 @@ add_action("admin_menu", function () {
 add_action("admin_init", function () {
     register_setting("kwvr_tt", "kwvr_tt_json_url", ["type" => "string", "sanitize_callback" => "esc_url_raw"]);
     register_setting("kwvr_tt", "kwvr_tt_icon_base", ["type" => "string", "sanitize_callback" => "esc_url_raw"]);
+    register_setting("kwvr_tt", "kwvr_tt_github_token", [
+        "type" => "string",
+        "sanitize_callback" => "sanitize_text_field",
+    ]);
+    register_setting("kwvr_tt", "kwvr_tt_auto_update", [
+        "type" => "string",
+        "sanitize_callback" => function ($v) {
+            return $v === "1" || $v === 1 || $v === true ? "1" : "0";
+        },
+    ]);
 });
 
 add_filter("upload_mimes", function ($mimes) {
@@ -54,6 +67,24 @@ function kwvr_tt_settings_page()
             <td>
               <input class="regular-text" type="url" id="kwvr_tt_icon_base" name="kwvr_tt_icon_base" value="<?php echo esc_attr(get_option("kwvr_tt_icon_base", "")); ?>" />
               <p class="description">Leave blank to use icons shipped with the plugin.</p>
+            </td>
+          </tr>
+          <tr>
+            <th>GitHub updates</th>
+            <td>
+              <label>
+                <input type="hidden" name="kwvr_tt_auto_update" value="0" />
+                <input type="checkbox" name="kwvr_tt_auto_update" value="1" <?php checked(get_option("kwvr_tt_auto_update", "1"), "1"); ?> />
+                Install new plugin versions from GitHub automatically
+              </label>
+              <p class="description">After you push a version bump to <code>GoldJack1/timetable-builder</code>, GitHub builds a zip. WordPress then updates this plugin from Dashboard → Updates (or on its own if this box is ticked).</p>
+            </td>
+          </tr>
+          <tr>
+            <th><label for="kwvr_tt_github_token">GitHub token (private repo only)</label></th>
+            <td>
+              <input class="regular-text" type="password" id="kwvr_tt_github_token" name="kwvr_tt_github_token" value="<?php echo esc_attr(get_option("kwvr_tt_github_token", "")); ?>" autocomplete="off" />
+              <p class="description">Leave blank if the GitHub repo is public. If it is private, create a token with <code>repo</code> access and paste it here.</p>
             </td>
           </tr>
         </table>

@@ -46,6 +46,17 @@ A sample timetable and icons are already inside the plugin. No JSON URL and no C
 
 To try your own draft: Export → JSON in the builder, upload that file in the test site’s Media, then paste the file URL in Settings → KWVR Timetable.
 
+## WordPress plugin updates from GitHub
+
+The plugin can update itself from [GoldJack1/timetable-builder](https://github.com/GoldJack1/timetable-builder).
+
+1. Upload `wordpress/kwvr-timetable` **once** (version 1.4.0 or later) via wp-admin.
+2. On GitHub: **Settings → Actions → General** → allow Actions, and allow GitHub Actions to create releases (contents write is in the workflow).
+3. Each time the plugin **Version** in `kwvr-timetable.php` is bumped and pushed to `main`, Actions publishes `kwvr-timetable.zip`.
+4. In wp-admin, **Dashboard → Updates** shows KWVR Timetable. Automatic updates are on unless you untick them in Settings → KWVR Timetable.
+
+If the repo is private, paste a GitHub token on that settings page.
+
 ## Deploy
 
 Connect this folder to Netlify (build `npm run build`, publish `dist`) or drag the `dist` folder after a local build.
